@@ -36,9 +36,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.ucai.applib.controller.HXSDKHelper;
+import cn.ucai.superwechat.R;
+
 import com.easemob.chat.EMCallStateChangeListener;
 import com.easemob.chat.EMChatManager;
-import com.easemob.chatuidemo.R;
+
 import com.easemob.exceptions.EMServiceNotReadyException;
 
 /**

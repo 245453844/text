@@ -31,7 +31,8 @@ import android.widget.ListView;
 import cn.ucai.applib.controller.HXSDKHelper;
 import cn.ucai.superwechat.Constant;
 import cn.ucai.superwechat.DemoHXSDKHelper;
-import com.easemob.chatuidemo.R;
+
+import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.adapter.ContactAdapter;
 import cn.ucai.superwechat.domain.User;
 import cn.ucai.superwechat.widget.Sidebar;

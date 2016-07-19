@@ -38,7 +38,8 @@ import com.easemob.chat.EMGroupManager;
 import cn.ucai.superwechat.Constant;
 import cn.ucai.superwechat.DemoApplication;
 import cn.ucai.superwechat.DemoHXSDKHelper;
-import com.easemob.chatuidemo.R;
+
+import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.domain.User;
 import cn.ucai.superwechat.utils.CommonUtils;

@@ -42,7 +42,8 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMContact;
 
 import cn.ucai.superwechat.DemoHXSDKHelper;
-import com.easemob.chatuidemo.R;
+
+import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.domain.RobotUser;
 import com.easemob.exceptions.EaseMobException;

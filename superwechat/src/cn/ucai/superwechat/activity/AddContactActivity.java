@@ -30,7 +30,8 @@ import cn.ucai.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMContactManager;
 import cn.ucai.superwechat.DemoApplication;
 import cn.ucai.superwechat.DemoHXSDKHelper;
-import com.easemob.chatuidemo.R;
+import cn.ucai.superwechat.R;
+
 
 public class AddContactActivity extends BaseActivity{
 	private EditText editText;

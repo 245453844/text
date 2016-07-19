@@ -42,7 +42,8 @@ import com.easemob.chat.TextMessageBody;
 import com.easemob.chat.EMConversation.EMConversationType;
 import cn.ucai.superwechat.Constant;
 import cn.ucai.superwechat.DemoHXSDKHelper;
-import com.easemob.chatuidemo.R;
+
+import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.domain.RobotUser;
 import cn.ucai.superwechat.utils.DateUtils;
 import cn.ucai.superwechat.utils.SmileUtils;

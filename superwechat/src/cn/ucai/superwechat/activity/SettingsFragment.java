@@ -37,7 +37,8 @@ import com.easemob.chat.EMChatOptions;
 import cn.ucai.superwechat.Constant;
 import cn.ucai.superwechat.DemoHXSDKHelper;
 import cn.ucai.superwechat.DemoHXSDKModel;
-import com.easemob.chatuidemo.R;
+import cn.ucai.superwechat.R;
+
 
 /**
  * 设置界面
