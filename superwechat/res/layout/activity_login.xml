@@ -11,11 +11,20 @@
         android:layout_weight="1" >
 
         <ImageView
+            android:id="@+id/tvMo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
-            android:src="@drawable/welcom_logo" />
+            android:src="@drawable/mobile" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="超级微信"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/tvMo"
+            android:layout_centerInParent="true"
+            android:textColor="#000"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -125,5 +134,11 @@
                 android:textSize="18sp" />
         </LinearLayout>
     </RelativeLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="null"
+        android:textColor="#000"
+        android:text="设置服务器的IP地址"/>
 
 </LinearLayout>
