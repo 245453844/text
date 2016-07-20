@@ -48,6 +48,7 @@ import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.domain.RobotUser;
 import com.easemob.exceptions.EaseMobException;
 
+
 public class RobotsActivity extends BaseActivity {
 
 	public static final String TAG = RobotsActivity.class.getSimpleName();
