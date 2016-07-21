@@ -36,6 +36,7 @@ import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.bean.Result;
 import cn.ucai.superwechat.data.OkHttpUtils2;
 import cn.ucai.superwechat.listener.OnSetAvatarListener;
+import cn.ucai.superwechat.utils.Utils;
 
 
 /**
@@ -164,8 +165,9 @@ public class RegisterActivity extends BaseActivity {
 							registerEMServer();
 						}else {
 							Log.e(TAG,"register fail..."+result.getRetCode());
-							pd.dismiss();
-							Toast.makeText(getApplicationContext(), getResources().getString(R.string.Registration_failed)  ,Toast.LENGTH_SHORT).show();
+							pd.dismiss();	pd.dismiss();
+							Toast.makeText(getApplicationContext(),R.string.Registration_failed+ Utils.getResourceString(RegisterActivity.this,result.getRetCode())
+									,Toast.LENGTH_SHORT).show();
 
 						}
 					}
