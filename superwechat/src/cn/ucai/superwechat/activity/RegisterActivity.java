@@ -121,18 +121,19 @@ public class RegisterActivity extends BaseActivity {
 			return;
 		}else if(!username.matches("[\\w][\\w\\d_]+")){
 			Toast.makeText(this,getResources().getString(R.string.illegal_user_name),Toast.LENGTH_SHORT).show();
-			userNameEditText.requestFocus();
+			userNickEditText.requestFocus();
+			return;
+		} else if (TextUtils.isEmpty(nick)) {
+			Toast.makeText(this, getResources().getString(R.string.toast_nick_not_isnull), Toast.LENGTH_SHORT).show();
+			userNickEditText.requestFocus();
 			return;
 		} else if (TextUtils.isEmpty(pwd)) {
 			Toast.makeText(this, getResources().getString(R.string.Password_cannot_be_empty), Toast.LENGTH_SHORT).show();
 			passwordEditText.requestFocus();
 			return;
-		} else if (TextUtils.isEmpty(confirm_pwd)) {
+		} else if (!pwd.equals(confirm_pwd)) {
 			Toast.makeText(this, getResources().getString(R.string.Confirm_password_cannot_be_empty), Toast.LENGTH_SHORT).show();
 			confirmPwdEditText.requestFocus();
-			return;
-		} else if (!pwd.equals(confirm_pwd)) {
-			Toast.makeText(this, getResources().getString(R.string.Two_input_password), Toast.LENGTH_SHORT).show();
 			return;
 		}
 

@@ -75,7 +75,14 @@ public class LoginActivity extends BaseActivity {
 
 		usernameEditText = (EditText) findViewById(R.id.username);
 		passwordEditText = (EditText) findViewById(R.id.password);
+		setListener();
 
+		if (SuperWeChatApplication.getInstance().getUserName() != null) {
+			usernameEditText.setText(SuperWeChatApplication.getInstance().getUserName());
+		}
+	}
+
+	private void setListener() {
 		// 如果用户名改变，清空密码
 		usernameEditText.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -93,9 +100,6 @@ public class LoginActivity extends BaseActivity {
 
 			}
 		});
-		if (SuperWeChatApplication.getInstance().getUserName() != null) {
-			usernameEditText.setText(SuperWeChatApplication.getInstance().getUserName());
-		}
 	}
 
 	/**
