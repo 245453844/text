@@ -18,6 +18,8 @@ import android.content.Context;
 
 import com.easemob.EMCallBack;
 
+import cn.ucai.superwechat.bean.UserAvatar;
+
 public class SuperWeChatApplication extends Application {
 
 	public static Context applicationContext;
@@ -84,7 +86,7 @@ public class SuperWeChatApplication extends Application {
 	/**
 	 * 设置用户名
 	 *
-	 * @param user
+	 * @param
 	 */
 	public void setUserName(String username) {
 	    hxSDKHelper.setHXId(username);
@@ -107,4 +109,14 @@ public class SuperWeChatApplication extends Application {
 		// 先调用sdk logout，在清理app中自己的数据
 	    hxSDKHelper.logout(isGCM,emCallBack);
 	}
+
+	public UserAvatar getUser() {
+		return user;
+	}
+
+	public void setUser(UserAvatar user) {
+		this.user = user;
+	}
+	             //全局的当前登录用户信息
+	private UserAvatar user;
 }
