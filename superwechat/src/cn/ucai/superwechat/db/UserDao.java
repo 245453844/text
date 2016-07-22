@@ -26,6 +26,7 @@ import cn.ucai.superwechat.domain.User;
 
 public class UserDao {
 	String a ;
+	int n;
 	public static final String TABLE_NAME = "uers";
 	public static final String COLUMN_NAME_ID = "username";
 	public static final String COLUMN_NAME_NICK = "nick";
