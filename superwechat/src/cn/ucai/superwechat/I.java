@@ -77,6 +77,7 @@ public interface I {
 	int GROUP_PUBLIC								=		1;								//公开群组
 	int GROUP_NO_PUBLIC								=		0;								//非公开群组
 	String BACKSLASH                                = 		"/";							//反斜杠
+	String AND                                      =       "&";                            //&符号
 	String MSG_PREFIX_MSG                           =       "msg_";                         //消息码前缀
 	String AVATAR_TYPE_USER_PATH					= 		"user_avatar";					//用户头像保存目录
 	String AVATAR_TYPE_GROUP_PATH 					=		"group_icon";					//群组头像保存目录
