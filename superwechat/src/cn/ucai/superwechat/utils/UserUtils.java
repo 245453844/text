@@ -16,6 +16,8 @@ import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.SuperWeChatApplication;
 import cn.ucai.superwechat.bean.UserAvatar;
 import cn.ucai.superwechat.domain.User;
+
+import com.easemob.chat.EMChatManager;
 import com.squareup.picasso.Picasso;
 
 public class UserUtils {
@@ -101,6 +103,13 @@ public class UserUtils {
 			Picasso.with(context).load(R.drawable.default_avatar).into(imageView);
 		}
 	}
+	/**
+	 * 设置当前用户头像
+	 */
+	public static void setAppCurrentUserAvatar(Context context, ImageView imageView) {
+		 String username =   SuperWeChatApplication.getInstance().getUserName();
+		setAppUserAvatar(context,username,imageView);
+	}
     
     /**
      * 设置用户昵称
@@ -137,6 +146,19 @@ public class UserUtils {
     		textView.setText(user.getNick());
     	}
     }
+	/**
+	 * 设置当前用户昵称
+	 */
+	public static void setAppCurrentUserNick(TextView textView){
+		UserAvatar  user = SuperWeChatApplication.getInstance().getUser();
+		if(textView != null&& user!= null){
+			if (user.getMUserNick()!=null){
+				textView.setText(user.getMUserNick());
+			}else {
+				textView.setText(user.getMUserName());
+			}
+		}
+	}
     
     /**
      * 保存或更新某个用户
