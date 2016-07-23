@@ -13,6 +13,8 @@ import cn.ucai.superwechat.DemoHXSDKHelper;
 
 import cn.ucai.superwechat.I;
 import cn.ucai.superwechat.R;
+import cn.ucai.superwechat.SuperWeChatApplication;
+import cn.ucai.superwechat.bean.UserAvatar;
 import cn.ucai.superwechat.domain.User;
 import com.squareup.picasso.Picasso;
 
@@ -36,8 +38,22 @@ public class UserUtils {
         }
         return user;
     }
-    
-    /**
+	/**
+	 * 根据username获取相应useravatar
+	 * @param username
+	 * @return
+	 */
+	public static UserAvatar getAppUserInfo(String username){
+		UserAvatar user = SuperWeChatApplication.getInstance().getUserMap().get(username);
+		if(user == null){
+			user = new UserAvatar(username);
+		}
+
+		return user;
+	}
+
+
+	/**
      * 设置用户头像
      * @param username
      */
@@ -97,6 +113,20 @@ public class UserUtils {
     		textView.setText(username);
     	}
     }
+	/**
+	 * 设置用户好友昵称
+	 */
+	public static void setAppUserNick(String username,TextView textView){
+		UserAvatar user = getAppUserInfo(username);
+		if(user != null){
+			if (user.getMUserNick()!=null){
+				textView.setText(user.getMUserNick());
+			}else {
+			textView.setText(user.getMUserNick());}
+		}else{
+			textView.setText(username);
+		}
+	}
     
     /**
      * 设置当前用户昵称
