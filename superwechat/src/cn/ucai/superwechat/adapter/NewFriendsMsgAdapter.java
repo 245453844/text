@@ -20,6 +20,7 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -33,11 +34,20 @@ import android.widget.Toast;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 
+import cn.ucai.superwechat.DemoHXSDKHelper;
+import cn.ucai.superwechat.I;
 import cn.ucai.superwechat.R;
+import cn.ucai.superwechat.activity.NewFriendsMsgActivity;
+import cn.ucai.superwechat.bean.Result;
+import cn.ucai.superwechat.bean.UserAvatar;
+import cn.ucai.superwechat.data.OkHttpUtils2;
 import cn.ucai.superwechat.db.InviteMessgeDao;
 import cn.ucai.superwechat.domain.InviteMessage;
+import cn.ucai.superwechat.utils.UserUtils;
+import cn.ucai.superwechat.utils.Utils;
 
 public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
+	private static  final String TAG = NewFriendsMsgAdapter.class.getSimpleName();
 
 	private Context context;
 	private InviteMessgeDao messgeDao;
@@ -83,7 +93,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 			}
 			
 			holder.reason.setText(msg.getReason());
-			holder.name.setText(msg.getFrom());
+//			holder.name.setText(msg.getFrom());
 			// holder.time.setText(DateUtils.getTimestampString(new
 			// Date(msg.getTime())));
 			if (msg.getStatus() == InviteMessage.InviteMesageStatus.BEAGREED) {
@@ -124,8 +134,34 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 			}
 
 			// 设置用户头像
-		}
+			UserUtils.setAppUserAvatar(context,msg.getFrom(),holder.avator);
+			final OkHttpUtils2<String> utils = new OkHttpUtils2<String>();
+			utils.setRequestUrl(I.REQUEST_FIND_USER)
+					.addParam(I.User.USER_NAME,msg.getFrom())
+					.targetClass(String.class)
+					.execute(new OkHttpUtils2.OnCompleteListener<String>() {
+						@Override
+						public void onSuccess(String s) {
+							Log.e(TAG,"s="+s);
+							Result result = Utils.getResultFromJson(s,UserAvatar.class);
+							Log.e(TAG,"result="+result);
+							if(result!=null&&result.isRetMsg()) {
+								UserAvatar user = (UserAvatar) result.getRetData();
+								Log.e(TAG, "user=" + user);
+								if (user != null) {
+									UserUtils.setAppUserNick(user, holder.name);
+								} else {
+									holder.name.setText(msg.getFrom());}
+								}else{
+									holder.name.setText(msg.getFrom());
+								}
+							}
+						public void onError(String error){
+								Log.e(TAG, "error=" + error);
+							}
+					});
 
+		}
 		return convertView;
 	}
 
@@ -133,7 +169,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 	 * 同意好友请求或者群申请
 	 * 
 	 * @param button
-	 * @param username
+	 * @param
 	 */
 	private void acceptInvitation(final Button button, final InviteMessage msg) {
 		final ProgressDialog pd = new ProgressDialog(context);
@@ -174,7 +210,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 						@Override
 						public void run() {
 							pd.dismiss();
-							Toast.makeText(context, str3 + e.getMessage(), 1).show();
+							Toast.makeText(context, str3 + e.getMessage(), Toast.LENGTH_SHORT).show();
 						}
 					});
 

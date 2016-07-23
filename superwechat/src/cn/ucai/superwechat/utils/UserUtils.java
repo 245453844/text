@@ -127,16 +127,20 @@ public class UserUtils {
 	 */
 	public static void setAppUserNick(String username,TextView textView){
 		UserAvatar user = getAppUserInfo(username);
+		setAppUserNick(user,textView);
+	}
+	/**
+	 * 设置用户好友昵称
+	 */
+	public static void setAppUserNick(UserAvatar user,TextView textView){
 		if(user != null){
-			if (user.getMUserNick()!=null){
+			if (user.getMUserNick()!=null) {
 				textView.setText(user.getMUserNick());
 			}else {
-			textView.setText(user.getMUserNick());}
-		}else{
-			textView.setText(username);
+				textView.setText(user.getMUserName());
+			}
 		}
 	}
-    
     /**
      * 设置当前用户昵称
      */
