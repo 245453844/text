@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
 import cn.ucai.superwechat.Constant;
+import cn.ucai.superwechat.I;
 import cn.ucai.superwechat.bean.UserAvatar;
 import cn.ucai.superwechat.domain.InviteMessage;
 import cn.ucai.superwechat.domain.RobotUser;
@@ -388,5 +389,15 @@ public class DemoDBManager {
             return user;
         }
         return user;
+    }
+
+   synchronized public void updateUserNick(UserAvatar user) {
+        SQLiteDatabase db  = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(UserDao.USER_COLUMN_NAME_NICK,user.getMUserNick());
+        values.put(UserDao.USER_COLUMN_NAME_NICK,user.getMUserNick());
+        if (db.isOpen()){
+            db.update(InviteMessgeDao.TABLE_NAME, values,UserDao.USER_COLUMN_NAME_ID + " = ?", new String[]{user.getMUserName()});
+        }
     }
 }

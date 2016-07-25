@@ -34,6 +34,7 @@ import cn.ucai.superwechat.SuperWeChatApplication;
 import cn.ucai.superwechat.bean.Result;
 import cn.ucai.superwechat.bean.UserAvatar;
 import cn.ucai.superwechat.data.OkHttpUtils2;
+import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.domain.User;
 import cn.ucai.superwechat.utils.UserUtils;
 import cn.ucai.superwechat.utils.Utils;
@@ -104,6 +105,9 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 			break;
 		case R.id.rl_nickname:
 			final EditText editText = new EditText(this);
+			Log.e(TAG,"nick="+SuperWeChatApplication.getInstance().getUser());
+			Log.e(TAG,"nick="+SuperWeChatApplication.currentUserNick);
+			editText.setText(SuperWeChatApplication.getInstance().getUser().getMUserNick());
 			new AlertDialog.Builder(this).setTitle(R.string.setting_nickname).setIcon(android.R.drawable.ic_dialog_info).setView(editText)
 					.setPositiveButton(R.string.dl_ok, new DialogInterface.OnClickListener() {
 
@@ -141,6 +145,10 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 							UserAvatar user = (UserAvatar)result.getRetData();
 							Log.e(TAG,"user="+user);
 							 if (user!=null){
+								 SuperWeChatApplication.getInstance().setUser(user);
+								 SuperWeChatApplication.currentUserNick = user.getMUserNick();
+								 UserDao dao =new UserDao(UserProfileActivity.this);
+								 dao.updateUserNick(user);
 								 updateRemoteNick(nickString);
 							 }
 						}else {
