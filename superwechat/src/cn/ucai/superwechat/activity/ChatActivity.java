@@ -46,6 +46,7 @@ import android.text.ClipboardManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -1765,6 +1766,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 class UpdateMemberListener extends BroadcastReceiver{
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		Log.e(TAG,"update Adapter ....");
 		adapter.notifyDataSetChanged();
 	}
 }

@@ -34,6 +34,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.Message;
 import android.text.Spannable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -419,6 +420,7 @@ public class MessageAdapter extends BaseAdapter{
 		if ((chatType == ChatType.GroupChat || chatType == ChatType.ChatRoom) && message.direct == EMMessage.Direct.RECEIVE){
 		    //demo里使用username代码nick
 			UserUtils.setUserNick(message.getFrom(), holder.tv_usernick);
+			UserUtils.setAppMemberNick(username,message.getFrom(),holder.tv_usernick);
 		}
 		if(message.direct == EMMessage.Direct.SEND){
 			UserUtils.setCurrentUserNick(holder.tv_usernick);
