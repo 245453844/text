@@ -12,19 +12,18 @@ import cn.ucai.superwechat.I;
 import cn.ucai.superwechat.SuperWeChatApplication;
 import cn.ucai.superwechat.bean.MemberUserAvatar;
 import cn.ucai.superwechat.bean.Result;
-import cn.ucai.superwechat.bean.UserAvatar;
 import cn.ucai.superwechat.data.OkHttpUtils2;
 import cn.ucai.superwechat.utils.Utils;
 
 /**
  * Created by liulian on 2016/7/22.
  */
-public class DownloadMemberTask {
-    private final static String TAG = DownloadMemberTask.class.getSimpleName();
+public class DownloadMemberMapTask {
+    private final static String TAG = DownloadMemberMapTask.class.getSimpleName();
     String hxid;
     Context mcontext;
 
-    public DownloadMemberTask(Context context, String hxid) {
+    public DownloadMemberMapTask(Context context, String hxid) {
         this.mcontext=context;
         this.hxid = hxid;
     }
