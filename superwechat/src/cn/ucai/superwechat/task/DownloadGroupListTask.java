@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.google.android.gms.internal.dy;
+
 import java.security.acl.Group;
 import java.util.List;
 import java.util.Map;
@@ -40,11 +42,14 @@ public class DownloadGroupListTask {
                         Result result= Utils.getListResultFromJson(s,GroupAvatar.class);
                         Log.e(TAG,"resulut="+result);
                         List<GroupAvatar>list=(List<GroupAvatar>)result.getRetData();
-                        if (list!=null&&list.size()>0){
+                        if (list!=null&&list.size()>0) {
                             SuperWeChatApplication.getInstance().setGroupList(list);
+                            for (GroupAvatar g : list) {
+                                SuperWeChatApplication.getInstance().getGroupMap().put(g.getMGroupHxid(),g);
+                            }
                             mcontext.sendStickyBroadcast(new Intent("update_group_list"));
-                        }
 
+                        }
 
                     }
 

@@ -169,4 +169,15 @@ public class SuperWeChatApplication extends Application {
 		this.userList = userList;
 	}
 
+	public Map<String, GroupAvatar> getGroupMap() {
+		return groupMap;
+	}
+
+	public void setGroupMap(Map<String, GroupAvatar> groupMap) {
+		this.groupMap = groupMap;
+	}
+
+	//	全局的当前登录用户的好友map集合
+	private Map<String,GroupAvatar> groupMap = new HashMap<String, GroupAvatar>();
+
 }
