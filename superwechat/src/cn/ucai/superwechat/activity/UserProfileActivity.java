@@ -59,6 +59,7 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 	private OnSetAvatarListener mOnSetAvatarListener;
 	private  String avatarName;
 	String a;
+	String b ;
 	
 	
 	
