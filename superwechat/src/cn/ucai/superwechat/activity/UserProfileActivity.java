@@ -58,6 +58,7 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 	private RelativeLayout rlNickName;
 	private OnSetAvatarListener mOnSetAvatarListener;
 	private  String avatarName;
+	String a;
 	
 	
 	

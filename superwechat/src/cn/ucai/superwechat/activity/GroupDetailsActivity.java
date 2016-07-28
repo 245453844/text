@@ -16,10 +16,12 @@ package cn.ucai.superwechat.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -290,6 +292,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 		}
 	}
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void refreshMembers(){
 	    adapter.clear();
         
