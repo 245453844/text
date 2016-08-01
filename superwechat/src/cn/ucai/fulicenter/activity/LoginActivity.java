@@ -204,7 +204,8 @@ public class LoginActivity extends BaseActivity {
 							loginSuccess(user);}
 						}else {
 							pd.dismiss();
-							Toast.makeText(getApplicationContext(),R.string.Login_failed+ Utils.getResourceString(LoginActivity.this,result.getRetCode())
+							Toast.makeText(getApplicationContext(),
+									"Login failed:"
 									,Toast.LENGTH_SHORT).show();
 						}
 
@@ -310,14 +311,14 @@ public class LoginActivity extends BaseActivity {
 		newFriends.setNick(strChat);
 
 		userlist.put(Constant.NEW_FRIENDS_USERNAME, newFriends);
-		// 添加"群聊"
-		User groupUser = new User();
-		String strGroup = getResources().getString(R.string.group_chat);
-		groupUser.setUsername(Constant.GROUP_USERNAME);
-		groupUser.setNick(strGroup);
-		groupUser.setHeader("");
-		userlist.put(Constant.GROUP_USERNAME, groupUser);
-		
+//		// 添加"群聊"
+//		User groupUser = new User();
+//		String strGroup = getResources().getString(R.string.group_chat);
+//		groupUser.setUsername(Constant.GROUP_USERNAME);
+//		groupUser.setNick(strGroup);
+//		groupUser.setHeader("");
+//		userlist.put(Constant.GROUP_USERNAME, groupUser);
+//
 		// 添加"Robot"
 //		User robotUser = new User();
 //		String strRobot = getResources().getString(R.string.robot_chat);

@@ -1236,17 +1236,17 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	 *
 	 * @param view
 	 */
-	public void toGroupDetails(View view) {
-		if (room == null && group == null) {
-			Toast.makeText(getApplicationContext(), R.string.gorup_not_found, Toast.LENGTH_SHORT).show();
-			return;
-		}
-		if (chatType==CHATTYPE_GROUP) {
-		}else{
-			startActivityForResult((new Intent(this, ChatRoomDetailsActivity.class).putExtra("roomId", toChatUsername)),
-					REQUEST_CODE_GROUP_DETAIL);
-		}
-	}
+//	public void toGroupDetails(View view) {
+//		if (room == null && group == null) {
+//			Toast.makeText(getApplicationContext(), R.string.gorup_not_found, Toast.LENGTH_SHORT).show();
+//			return;
+//		}
+//		if (chatType==CHATTYPE_GROUP) {
+//		}else{
+//			startActivityForResult((new Intent(this, ChatRoomDetailsActivity.class).putExtra("roomId", toChatUsername)),
+//					REQUEST_CODE_GROUP_DETAIL);
+//		}
+//	}
 
 	/**
 	 * 显示或隐藏图标按钮页

@@ -95,11 +95,7 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 			UserUtils.setAppCurrentUserNick(tvNickName);
 			UserUtils.setCurrentUserAvatar(this,headAvatar);
 		}
-		else if(hxid!=null){
-			tvUsername.setText(username);
-			UserUtils.setAppMemberNick(hxid,username,tvNickName);
-			UserUtils.setAppUserAvatar(this,username,headAvatar);
-		}else  {
+		else  {
 			tvUsername.setText(username);
 			UserUtils.setAppUserNick(username, tvNickName);
 			UserUtils.setAppUserAvatar(this, username, headAvatar);
