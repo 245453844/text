@@ -79,6 +79,9 @@ public class Utils {
     public static <T> Result getResultFromJson(String jsonStr,Class<T> clazz){
         Result result = new Result();
         try {
+            if (jsonStr==null||jsonStr.isEmpty()||jsonStr.length()<3){
+                return null;
+            }
             JSONObject jsonObject = new JSONObject(jsonStr);
             if (!jsonObject.isNull("retCode")){
                 result.setRetCode(jsonObject.getInt("retCode"));
