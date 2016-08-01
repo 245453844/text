@@ -5,6 +5,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
 
+import cn.ucai.fulicenter.D;
+
 /**
  * 购物车
  * 
@@ -22,9 +24,9 @@ public class CartBean implements Serializable {
 	@JsonProperty("isChecked")
 	private boolean isChecked;
 
-	private String goods;
+	private D.GoodDetails goods;
 
-	public CartBean(int id, String userName, int goodsId, int count, boolean isChecked, String goods) {
+	public CartBean(int id, String userName, int goodsId, int count, boolean isChecked, D.GoodDetails goods) {
 		this.id = id;
 		this.userName = userName;
 		this.goodsId = goodsId;
@@ -33,11 +35,11 @@ public class CartBean implements Serializable {
 		this.goods = goods;
 	}
 
-	public String getGoods() {
+	public D.GoodDetails getGoods() {
 		return goods;
 	}
 
-	public void setGoods(String goods) {
+	public void setGoods(D.GoodDetails goods) {
 		this.goods = goods;
 	}
 @JsonIgnore
