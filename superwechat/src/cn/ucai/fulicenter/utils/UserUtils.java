@@ -54,18 +54,6 @@ public class UserUtils {
 
 		return user;
 	}
-	public static MemberUserAvatar getAppMemberInfo(String hxid,String username){
-		MemberUserAvatar member = null;
-		HashMap<String, MemberUserAvatar> members = FuliCenterApplication.getInstance().getMemberMap().get(hxid);
-		Log.e(TAG,"hxid="+hxid+"members="+members);
-		if (members==null||members.size()<0){
-			return null;
-		}else {
-		  member =	members.get(username);
-		}
-		return  member;
-
-	}
 
 	/**
      * 设置用户头像
@@ -109,7 +97,7 @@ public class UserUtils {
 	}
 //	获取群组头像地址
 	public   static  String getGroupAvatarPath(String hxid	){
-		StringBuilder path =new StringBuilder(I.SERVER_ROOT);
+		StringBuilder path =new StringBuilder(I .SERVER_ROOT);
 		path.append(I.QUESTION).append(I.KEY_REQUEST)
 				.append(I.EQUAL)
 				.append(I.REQUEST_DOWNLOAD_AVATAR)
@@ -213,13 +201,4 @@ public class UserUtils {
 		((DemoHXSDKHelper) HXSDKHelper.getInstance()).saveContact(newUser);
 	}
 
-	public static void setAppMemberNick(String hxid, String username, TextView textView) {
-		MemberUserAvatar member = getAppMemberInfo(hxid, username);
-		Log.e(TAG,"member="+member);
-		if (member!=null&& member.getMUserName()!=null){
-			textView.setText(member.getMUserNick());
-		}else {
-			textView.setText(username);
-		}
-	}
 }
