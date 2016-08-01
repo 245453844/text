@@ -62,7 +62,7 @@ public class Utils {
     public static String getResourceString(Context context, int msg){
         if(msg<=0) return null;
         String msgStr = msg+"";
-        msgStr = I.MSG_PREFIX_MSG + msgStr;
+        msgStr = I  .MSG_PREFIX_MSG + msgStr;
         int resId = context.getResources().getIdentifier(msgStr, "string", context.getPackageName());
         return context.getResources().getString(resId);
     }
@@ -80,8 +80,15 @@ public class Utils {
         Result result = new Result();
         try {
             JSONObject jsonObject = new JSONObject(jsonStr);
-            result.setRetCode(jsonObject.getInt("retCode"));
-            result.setRetMsg(jsonObject.getBoolean("retMsg"));
+            if (!jsonObject.isNull("retCode")){
+                result.setRetCode(jsonObject.getInt("retCode"));
+            }else if (!jsonObject.isNull("msg")){
+                 result.setRetCode(jsonObject.getInt("msg"));
+            }if (!jsonObject.isNull("retMsg")){
+            result.setRetMsg(jsonObject.getBoolean("retMsg"));}
+            else if (!jsonObject.isNull("result")){
+                 result.setRetMsg(jsonObject.getBoolean("result"));
+            }
             if(!jsonObject.isNull("retData")) {
                 JSONObject jsonRetData = jsonObject.getJSONObject("retData");
                 if (jsonRetData != null) {
@@ -101,6 +108,23 @@ public class Utils {
                         return result;
                     }
                 }
+            }else {
+                if (jsonObject != null) {
+                    Log.e("Utils", "jsonRetData=" + jsonObject);
+                    String date;
+                    try {
+                        date = URLDecoder.decode(jsonObject.toString(), I.UTF_8);
+                        Log.e("Utils", "jsonRetData=" + date);
+                        T t = new Gson().fromJson(date, clazz);
+                        result.setRetData(t);
+                        return result;
+                    } catch (UnsupportedEncodingException e1) {
+                        e1.printStackTrace();
+                        T t = new Gson().fromJson(jsonObject.toString(), clazz);
+                        result.setRetData(t);
+                        return result;
+                    }
+                    }
             }
             return result;
         }catch (Exception e){
@@ -129,6 +153,7 @@ public class Utils {
                     return result;
                 }
             }
+
             return result;
         }catch (Exception e){
             e.printStackTrace();
