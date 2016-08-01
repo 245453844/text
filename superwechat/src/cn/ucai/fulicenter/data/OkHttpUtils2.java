@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.FuliCenterApplication;
+import cn.ucai.fulicenter.I;
 
 /**
  *  * OkHttp框架的二次封装

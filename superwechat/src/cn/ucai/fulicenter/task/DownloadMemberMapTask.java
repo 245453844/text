@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.FuliCenterApplication;
+import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.bean.MemberUserAvatar;
 import cn.ucai.fulicenter.bean.Result;
 import cn.ucai.fulicenter.data.OkHttpUtils2;

@@ -7,8 +7,8 @@ import android.util.Log;
 import java.util.List;
 import java.util.Map;
 
-import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.FuliCenterApplication;
+import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.bean.Result;
 import cn.ucai.fulicenter.bean.UserAvatar;
 import cn.ucai.fulicenter.data.OkHttpUtils2;

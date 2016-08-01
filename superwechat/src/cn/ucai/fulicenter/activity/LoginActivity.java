@@ -42,10 +42,10 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import cn.ucai.fulicenter.Constant;
-import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.FuliCenterApplication;
 import cn.ucai.fulicenter.DemoHXSDKHelper;
 
+import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.Result;
 import cn.ucai.fulicenter.bean.UserAvatar;

@@ -30,9 +30,9 @@ import android.widget.Toast;
 import cn.ucai.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMContactManager;
 
-import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.FuliCenterApplication;
 import cn.ucai.fulicenter.DemoHXSDKHelper;
+import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.Result;
 import cn.ucai.fulicenter.bean.UserAvatar;

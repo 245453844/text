@@ -33,6 +33,7 @@ import com.easemob.chat.EMGroupManager;
 import com.easemob.exceptions.EaseMobException;
 
 import java.io.File;
+
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.FuliCenterApplication;
@@ -163,7 +164,7 @@ public class NewGroupActivity extends BaseActivity {
 		boolean isPublic = checkBox.isChecked();
 		boolean invites = !isPublic;
 		File file = new File(OnSetAvatarListener.getAvatarPath(NewGroupActivity.this,I.AVATAR_TYPE_GROUP_PATH),
-				avatarName+I.AVATAR_SUFFIX_JPG);
+				avatarName+ I.AVATAR_SUFFIX_JPG);
 		String own  = FuliCenterApplication.getInstance().getUserName();
 		final OkHttpUtils2<String>utils = new OkHttpUtils2<String>();
 		utils.setRequestUrl(I.REQUEST_CREATE_GROUP)

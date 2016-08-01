@@ -112,7 +112,7 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 		switch (v.getId()) {
 		case R.id.user_head_avatar:
 //			uploadHeadPhoto();
-			mOnSetAvatarListener =new OnSetAvatarListener(UserProfileActivity.this,R.id.Layout_upload_avatar,getAvatarName(),I.AVATAR_TYPE_USER_PATH);
+			mOnSetAvatarListener =new OnSetAvatarListener(UserProfileActivity.this,R.id.Layout_upload_avatar,getAvatarName(), I.AVATAR_TYPE_USER_PATH);
 			break;
 		case R.id.rl_nickname:
 			final EditText editText = new EditText(this);

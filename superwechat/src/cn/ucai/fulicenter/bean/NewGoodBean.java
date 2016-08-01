@@ -1,5 +1,8 @@
 package cn.ucai.fulicenter.bean;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import java.io.Serializable;
 
 /**
@@ -29,6 +32,7 @@ public class NewGoodBean implements Serializable {
 	/** 人民币折扣价格*/
 	private String rankPrice;
 	/**是否折扣*/
+	@JsonProperty("isPromote")
 	private boolean isPromote;
 	/** 商品缩略图地址*/
 	private String goodsThumb;
@@ -146,7 +150,7 @@ public class NewGoodBean implements Serializable {
 	public void setAddTime(long addTime) {
 		this.addTime = addTime;
 	}
-	
+	@JsonIgnore
 	public boolean isPromote() {
 		return isPromote;
 	}
