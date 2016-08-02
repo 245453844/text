@@ -23,6 +23,7 @@ public class FuliCenterMainActivity extends  BaseActivity{
     RadioButton[] mrbTabs;
     int index;
     int currentIndex;
+    NewGoodsFragment mNewGoodsFragment;
     @Override
     protected  void  onCreate(Bundle savedInstanceState){
          super.onCreate(savedInstanceState);
@@ -43,6 +44,11 @@ public class FuliCenterMainActivity extends  BaseActivity{
         mrbTabs[2]= rbCategory;
         mrbTabs[3]=rbCart;
         mrbTabs[4]=rbPersonalCenter;
+        mNewGoodsFragment = new NewGoodsFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container,mNewGoodsFragment)
+                .show(mNewGoodsFragment)
+                .commit();
      }
     public  void  onCheckedChange(View view){
         switch (view.getId()){
