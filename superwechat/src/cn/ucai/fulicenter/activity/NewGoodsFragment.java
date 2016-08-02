@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class NewGoodsFragment extends Fragment {
     GridLayoutManager mGridLayoutManger;
     GoodAdapter mAdapter;
     List<NewGoodBean> mGoodList;
-    int pageId = 1;
+    int pageId = 0;
     TextView tvHint;
 
     public NewGoodsFragment() {
@@ -58,6 +57,31 @@ public class NewGoodsFragment extends Fragment {
 
     private void setListener() {
         setPullDownRefreshListener();
+        setPullUpRefreshListener();
+    }
+
+    private void setPullUpRefreshListener() {
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener(){
+            int lastItemPosition;
+            public  void  onScrollStateChanged(RecyclerView recyclerView,int newStae){
+                super.onScrollStateChanged(recyclerView,newStae);
+                int a = RecyclerView.SCROLL_STATE_DRAGGING;
+                int b = RecyclerView.SCROLL_STATE_IDLE;
+                int c = RecyclerView.SCROLL_STATE_SETTLING;
+                Log.e(TAG,"newState="+newStae);
+                if (newStae==RecyclerView.SCROLL_STATE_IDLE&&lastItemPosition==mAdapter.getItemCount()-1){
+                    pageId+=I.PAGE_SIZE_DEFAULT;
+                    initData();
+                }
+            }
+            public void  onScrolled(RecyclerView recylerView,int dx, int dy) {
+                super.onScrolled(recylerView,dx,dy);
+                int f = mGridLayoutManger.findFirstCompletelyVisibleItemPosition();
+                int l = mGridLayoutManger.findLastVisibleItemPosition();
+                Log.e(TAG,"f="+f+"l="+l);
+                lastItemPosition = mGridLayoutManger.findLastVisibleItemPosition();
+            }
+        });
     }
 
     private void setPullDownRefreshListener() {
@@ -76,7 +100,7 @@ public class NewGoodsFragment extends Fragment {
             findNewGoodList(new OkHttpUtils2.OnCompleteListener<NewGoodBean[]>() {
                 @Override
                 public void onSuccess(NewGoodBean[] result) {
-                    Log.e(TAG, "result=" + result);
+                    Log.e(TAG, "result=" + result[0]);
                     tvHint.setVisibility(View.GONE);
                     mSwipeRefreshLayout.setRefreshing(false);
                     if (result != null) {
@@ -100,7 +124,7 @@ public class NewGoodsFragment extends Fragment {
 
 
 
-            private void findNewGoodList(OkHttpUtils2.OnCompleteListener<NewGoodBean[]> listener) {
+            private void findNewGoodList(OkHttpUtils2.OnCompleteListener<NewGoodBean[]> listener) throws  Exception{
                 OkHttpUtils2<NewGoodBean[]> utils = new OkHttpUtils2<NewGoodBean[]>();
                 utils.setRequestUrl(I.REQUEST_FIND_NEW_BOUTIQUE_GOODS)
                         .addParam(I.NewAndBoutiqueGood.CAT_ID, String.valueOf(I.CAT_ID))
@@ -114,10 +138,10 @@ public class NewGoodsFragment extends Fragment {
     private void initView(View layout) {
         mSwipeRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.srl_new_good);
         mSwipeRefreshLayout.setColorSchemeColors(
-                R.color.google_blue,
-                R.color.google_yellow,
-                R.color.google_green,
-                R.color.google_red
+               getResources().getColor(R.color.google_blue) ,
+                getResources().getColor(R.color.google_yellow),
+                getResources().getColor(R.color.google_green),
+                getResources().getColor(R.color.google_red)
         );
         mRecyclerView = (RecyclerView) layout.findViewById(R.id.rv_new_good);
         mGridLayoutManger = new GridLayoutManager(mContext, I.COLUM_NUM);
