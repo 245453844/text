@@ -12,8 +12,10 @@ import android.widget.Toast;
 import cn.ucai.fulicenter.D;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.bean.AlbumBean;
 import cn.ucai.fulicenter.bean.GoodDetailsBean;
 import cn.ucai.fulicenter.data.OkHttpUtils2;
+import cn.ucai.fulicenter.view.DisplayUtils;
 import cn.ucai.fulicenter.view.FlowIndicator;
 import cn.ucai.fulicenter.view.SlideAutoLoopView;
 
@@ -35,6 +37,7 @@ public class GoodDetailsActivity extends BaseActivity {
     WebView wvGoodBrief;
     int mGoodId;
     GoodDetailsActivity mContext;
+    GoodDetailsBean mGoodDetails;
     protected  void  onCreate(Bundle arg0){
         super.onCreate(arg0);
         setContentView(R.layout.activity_good_details);
@@ -52,7 +55,8 @@ public class GoodDetailsActivity extends BaseActivity {
                 public void onSuccess(GoodDetailsBean result) {
                     Log.e(TAG,"result="+result);
                     if (result!=null){
-                        showGoodDetails(result);
+                        mGoodDetails =result;
+                        showGoodDetails();
                     }
 
                 }
@@ -70,11 +74,13 @@ public class GoodDetailsActivity extends BaseActivity {
         }
     }
 
-    private void showGoodDetails(GoodDetailsBean details) {
-        tvGoodEnglishName.setText(details.getGoodsEnglishName());
-        tvGoodName.setText(details.getGoodsName());
-        tvGoodPriceCurrent.setText(details.getCurrencyPrice());
-        tvGoodPriceShop.setText(details.getShopPrice());
+    private void showGoodDetails() {
+        tvGoodEnglishName.setText(mGoodDetails.getGoodsEnglishName());
+        tvGoodName.setText(mGoodDetails.getGoodsName());
+        tvGoodPriceCurrent.setText(mGoodDetails.getCurrencyPrice());
+        tvGoodPriceShop.setText(mGoodDetails.getShopPrice());
+        mSlideAutoLoopView.startPlayLoop(mFloewIndicator,getAlbumImageUrl(),getAlbumImageSize());
+        wvGoodBrief.loadDataWithBaseURL(null,mGoodDetails.getGoodsBrief(),D.TEXT_HTML,D.UTF_8,null);
     }
 
     private  void  getGoodDetailsByGoodId(OkHttpUtils2.OnCompleteListener<GoodDetailsBean> listener){
@@ -85,6 +91,7 @@ public class GoodDetailsActivity extends BaseActivity {
                 .execute(listener);
     }
     private void initView() {
+        DisplayUtils.initBcak(mContext);
         ivShare = (ImageView) findViewById(R.id.iv_good_share);
         ivCollect = (ImageView) findViewById(R.id.iv_good_collect);
         ivCart = (ImageView) findViewById(R.id.iv_good_cart);
@@ -99,5 +106,24 @@ public class GoodDetailsActivity extends BaseActivity {
         WebSettings settings = wvGoodBrief.getSettings();
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setBuiltInZoomControls(true);
+    }
+
+    public int getAlbumImageSize() {
+        if (mGoodDetails.getProperties() != null && mGoodDetails.getProperties().length > 0) {
+            return mGoodDetails.getProperties()[0].getAlbums().length;
+        }
+        return 0;
+    }
+
+    public String[] getAlbumImageUrl() {
+        String [] albumImageUrl =new String[]{};
+        if (mGoodDetails.getProperties()!=null&&mGoodDetails.getProperties().length>0){
+            AlbumBean[] albums = mGoodDetails.getProperties()[0].getAlbums();
+            albumImageUrl =new String[albums.length];
+            for (int i=0;i<albumImageUrl.length;i++){
+                albumImageUrl[i] = albums[i].getImgUrl();
+            }
+        }
+        return  albumImageUrl;
     }
 }
