@@ -50,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="25dp"
+        android:background="@color/good_detail_bg_white"
         android:layout_below="@+id/layout_title">
         <TextView
             android:id="@+id/tv_good_name_english"
