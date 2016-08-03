@@ -77,6 +77,12 @@
             android:theme="@style/horizontal_slide" 
             android:windowSoftInputMode="adjustResize|stateVisible">
         </activity>
+        <!-- 商品详情 -->
+        <activity
+            android:name="cn.ucai.fulicenter.activity.GoodDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide">
+        </activity>
 
         <!-- 注册 -->
         <activity

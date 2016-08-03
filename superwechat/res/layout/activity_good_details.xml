@@ -36,6 +36,7 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/menu_item_cart_normal"/>
             <TextView
+                android:id="@+id/tv_cart_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10"
@@ -110,6 +111,10 @@
         android:id="@+id/wv_good_brief"
         android:layout_below="@+id/layout_banner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></WebView>
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/good_detail_bg_white">
+
+    </WebView>
 
 </RelativeLayout>

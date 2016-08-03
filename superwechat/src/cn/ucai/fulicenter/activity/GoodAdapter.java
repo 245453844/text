@@ -1,6 +1,7 @@
 package cn.ucai.fulicenter.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import cn.ucai.fulicenter.D;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.NewGoodBean;
@@ -75,11 +77,19 @@ public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
        if (holder instanceof GoodViewHolder){
            mGoodViewHolder = (GoodViewHolder) holder;
-           NewGoodBean good = mGoodlist.get(position);
+           final NewGoodBean good = mGoodlist.get(position);
            ImageUtils.setGoodThumb(mContext,mGoodViewHolder.ivGoodThumb,good.getGoodsThumb());
-//           mGoodViewHolder.ivGoodThumb.setImageURI(good.getGoodsThumb());
            mGoodViewHolder.tvGoodName.setText(good.getGoodsName());
            mGoodViewHolder.tvGoodPrice.setText(good.getCurrencyPrice());
+           mGoodViewHolder.layout.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   mContext.startActivity(new Intent(mContext,GoodDetailsActivity.class)
+                           .putExtra(D.GoodDetails.KEY_GOODS_ID,good.getGoodsId()));
+
+
+               }
+           });
        }
         if (holder instanceof  FooterViewHolder){
             mFooterViewHolder = (FooterViewHolder) holder;
