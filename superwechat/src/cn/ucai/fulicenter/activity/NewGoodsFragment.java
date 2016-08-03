@@ -37,6 +37,7 @@ public class NewGoodsFragment extends Fragment {
     List<NewGoodBean> mGoodList;
     int pageId = 0;
     TextView tvHint;
+    int action =  I.ACTION_DOWNLOAD;
 
     public NewGoodsFragment() {
         // Required empty public constructor
@@ -71,9 +72,11 @@ public class NewGoodsFragment extends Fragment {
                 int c = RecyclerView.SCROLL_STATE_SETTLING;
                 Log.e(TAG,"newState="+newStae);
                 if (newStae==RecyclerView.SCROLL_STATE_IDLE&&lastItemPosition==mAdapter.getItemCount()-1){
-                    if (mAdapter.isMore()){
-                    pageId+=I.PAGE_SIZE_DEFAULT;
-                    initData();}
+                    if (mAdapter.isMore()) {
+                        action = I.ACTION_PULL_UP;
+                        pageId += I.PAGE_SIZE_DEFAULT;
+                        initData();
+                    }
                 }
             }
             public void  onScrolled(RecyclerView recylerView,int dx, int dy) {
@@ -90,8 +93,10 @@ public class NewGoodsFragment extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                action =I.ACTION_PULL_DOWN;
+                pageId = 0;
+                mSwipeRefreshLayout.setRefreshing(true);
                 tvHint.setVisibility(View.VISIBLE);
-                pageId = 1;
                 initData();
             }
         });
@@ -110,11 +115,18 @@ public class NewGoodsFragment extends Fragment {
                     if (result != null) {
                         Log.e(TAG, "reslut.length=" + result.length);
                         ArrayList<NewGoodBean> goodBeanArrayList = Utils.array2List(result);
+                        if (action==I.ACTION_DOWNLOAD||action==I.ACTION_PULL_DOWN){
                         mAdapter.initItem(goodBeanArrayList);
+                        }else {
+                            mAdapter.addItem(goodBeanArrayList);
+                        }
                         if (goodBeanArrayList.size()<I.PAGE_SIZE_DEFAULT){
                             mAdapter.setMore(false);
                             mAdapter.setFooterString(getResources().getString(R.string.no_more));
                         }
+                    }else {
+                        mAdapter.setMore(false);
+                        mAdapter.setFooterString(getResources().getString(R.string.no_more));
                     }
                 }
 

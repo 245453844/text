@@ -11,6 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import cn.ucai.fulicenter.I;
@@ -33,6 +36,7 @@ public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         mContext =context;
         mGoodlist =new ArrayList<NewGoodBean>();
         mGoodlist.addAll(list);
+        soryByAddTime();
     }
 
     public String getFooterString() {
@@ -41,6 +45,7 @@ public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     public void setFooterString(String footerString) {
         this.footerString = footerString;
+        notifyDataSetChanged();
     }
 
     public boolean isMore() {
@@ -99,7 +104,13 @@ public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             mGoodlist.clear();
         }
         mGoodlist.addAll(list);
+        soryByAddTime();
         mGoodlist = list;
+        notifyDataSetChanged();
+    }
+
+    public void addItem(ArrayList<NewGoodBean> list) {
+        mGoodlist.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -116,5 +127,13 @@ public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             tvGoodPrice = (TextView) itemView.findViewById(R.id.tv_good_price);
 
         }
+    }
+    private void  soryByAddTime(){
+        Collections.sort(mGoodlist, new Comparator<NewGoodBean>() {
+            @Override
+            public int compare(NewGoodBean goodLeft, NewGoodBean goodRight) {
+                return (int)(Long.valueOf(goodLeft.getAddTime())-Long.valueOf(goodRight.getAddTime()));
+            }
+        });
     }
 }
