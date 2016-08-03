@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -70,8 +71,9 @@ public class NewGoodsFragment extends Fragment {
                 int c = RecyclerView.SCROLL_STATE_SETTLING;
                 Log.e(TAG,"newState="+newStae);
                 if (newStae==RecyclerView.SCROLL_STATE_IDLE&&lastItemPosition==mAdapter.getItemCount()-1){
+                    if (mAdapter.isMore()){
                     pageId+=I.PAGE_SIZE_DEFAULT;
-                    initData();
+                    initData();}
                 }
             }
             public void  onScrolled(RecyclerView recylerView,int dx, int dy) {
@@ -101,20 +103,27 @@ public class NewGoodsFragment extends Fragment {
                 @Override
                 public void onSuccess(NewGoodBean[] result) {
                     Log.e(TAG, "result=" + result[0]);
-                    tvHint.setVisibility(View.GONE);
                     mSwipeRefreshLayout.setRefreshing(false);
+                    tvHint.setVisibility(View.GONE);
+                    mAdapter.setMore(true);
+                    mAdapter.setFooterString(getResources().getString(R.string.load_more));
                     if (result != null) {
                         Log.e(TAG, "reslut.length=" + result.length);
                         ArrayList<NewGoodBean> goodBeanArrayList = Utils.array2List(result);
-                        mAdapter.initData(goodBeanArrayList);
+                        mAdapter.initItem(goodBeanArrayList);
+                        if (goodBeanArrayList.size()<I.PAGE_SIZE_DEFAULT){
+                            mAdapter.setMore(false);
+                            mAdapter.setFooterString(getResources().getString(R.string.no_more));
+                        }
                     }
                 }
 
                 @Override
                 public void onError(String error) {
                     Log.e(TAG, "error=" + error);
-                    tvHint.setVisibility(View.GONE);
                     mSwipeRefreshLayout.setRefreshing(false);
+                    tvHint.setVisibility(View.GONE);
+                    Toast.makeText(mContext,error,Toast.LENGTH_SHORT).show();
                 }
             });
         }catch (Exception e){
@@ -138,7 +147,7 @@ public class NewGoodsFragment extends Fragment {
     private void initView(View layout) {
         mSwipeRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.srl_new_good);
         mSwipeRefreshLayout.setColorSchemeColors(
-               getResources().getColor(R.color.google_blue) ,
+                getResources().getColor(R.color.google_blue) ,
                 getResources().getColor(R.color.google_yellow),
                 getResources().getColor(R.color.google_green),
                 getResources().getColor(R.color.google_red)
