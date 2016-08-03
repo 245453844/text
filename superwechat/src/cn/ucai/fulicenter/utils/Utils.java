@@ -19,6 +19,7 @@ import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.bean.Pager;
 import cn.ucai.fulicenter.bean.Result;
 
+
 /**
  * Created by clawpo on 16/3/28.
  */
@@ -62,7 +63,7 @@ public class Utils {
     public static String getResourceString(Context context, int msg){
         if(msg<=0) return null;
         String msgStr = msg+"";
-        msgStr = I  .MSG_PREFIX_MSG + msgStr;
+        msgStr = I.MSG_PREFIX_MSG + msgStr;
         int resId = context.getResources().getIdentifier(msgStr, "string", context.getPackageName());
         return context.getResources().getString(resId);
     }
@@ -76,21 +77,20 @@ public class Utils {
 //    }
 
 
-    public static <T> Result getResultFromJson(String jsonStr,Class<T> clazz){
+    public static <T> Result getResultFromJson(String jsonStr, Class<T> clazz){
         Result result = new Result();
         try {
-            if (jsonStr==null||jsonStr.isEmpty()||jsonStr.length()<3){
-                return null;
-            }
+            if (jsonStr==null || jsonStr.isEmpty() || jsonStr.length()<3)return null;
             JSONObject jsonObject = new JSONObject(jsonStr);
             if (!jsonObject.isNull("retCode")){
                 result.setRetCode(jsonObject.getInt("retCode"));
             }else if (!jsonObject.isNull("msg")){
-                 result.setRetCode(jsonObject.getInt("msg"));
-            }if (!jsonObject.isNull("retMsg")){
-            result.setRetMsg(jsonObject.getBoolean("retMsg"));}
-            else if (!jsonObject.isNull("result")){
-                 result.setRetMsg(jsonObject.getBoolean("result"));
+                result.setRetCode(jsonObject.getInt("msg"));
+            }
+            if (!jsonObject.isNull("retMsg")){
+                result.setRetMsg(jsonObject.getBoolean("retMsg"));
+            }else if (!jsonObject.isNull("result")){
+                result.setRetMsg(jsonObject.getBoolean("result"));
             }
             if(!jsonObject.isNull("retData")) {
                 JSONObject jsonRetData = jsonObject.getJSONObject("retData");
@@ -121,13 +121,14 @@ public class Utils {
                         T t = new Gson().fromJson(date, clazz);
                         result.setRetData(t);
                         return result;
+
                     } catch (UnsupportedEncodingException e1) {
                         e1.printStackTrace();
                         T t = new Gson().fromJson(jsonObject.toString(), clazz);
                         result.setRetData(t);
                         return result;
                     }
-                    }
+                }
             }
             return result;
         }catch (Exception e){
@@ -140,9 +141,18 @@ public class Utils {
         Result result = new Result();
         Log.e("Utils","jsonStr="+jsonStr);
         try {
+            if (jsonStr==null || jsonStr.isEmpty() || jsonStr.length()<3)return null;
             JSONObject jsonObject = new JSONObject(jsonStr);
-            result.setRetCode(jsonObject.getInt("retCode"));
-            result.setRetMsg(jsonObject.getBoolean("retMsg"));
+            if (!jsonObject.isNull("retCode")){
+                result.setRetCode(jsonObject.getInt("retCode"));
+            }else if (!jsonObject.isNull("msg")){
+                result.setRetCode(jsonObject.getInt("msg"));
+            }
+            if (!jsonObject.isNull("retMsg")){
+                result.setRetMsg(jsonObject.getBoolean("retMsg"));
+            }else if (!jsonObject.isNull("result")){
+                result.setRetMsg(jsonObject.getBoolean("result"));
+            }
             if(!jsonObject.isNull("retData")) {
                 JSONArray array = jsonObject.getJSONArray("retData");
                 if (array != null) {
@@ -155,8 +165,19 @@ public class Utils {
                     result.setRetData(list);
                     return result;
                 }
+            }else {
+                JSONArray array=new JSONArray(jsonStr);
+                if (array!=null){
+                    List<T> list=new ArrayList<T>();
+                    for (int i = 0;i<array.length();i++){
+                        JSONObject jsonGroouAvatar=array.getJSONObject(i);
+                        T ga = new Gson().fromJson(jsonGroouAvatar.toString(),clazz);
+                        list.add(ga);
+                    }
+                    result.setRetData(list);
+                    return result;
+                }
             }
-
             return result;
         }catch (Exception e){
             e.printStackTrace();
@@ -167,9 +188,18 @@ public class Utils {
     public static <T> Result getPageResultFromJson(String jsonStr,Class<T> clazz){
         Result result = new Result();
         try {
+            if (jsonStr==null||jsonStr.isEmpty()||jsonStr.length()<3)return null;
             JSONObject jsonObject = new JSONObject(jsonStr);
-            result.setRetCode(jsonObject.getInt("retCode"));
-            result.setRetMsg(jsonObject.getBoolean("retMsg"));
+            if (!jsonObject.isNull("retCode")){
+                result.setRetCode(jsonObject.getInt("retCode"));
+            }else if (!jsonObject.isNull("msg")){
+                result.setRetCode(jsonObject.getInt("msg"));
+            }
+            if (!jsonObject.isNull("retMsg")){
+                result.setRetMsg(jsonObject.getBoolean("retMsg"));
+            }else if (!jsonObject.isNull("result")){
+                result.setRetMsg(jsonObject.getBoolean("result"));
+            }
             if(!jsonObject.isNull("retData")) {
                 JSONObject jsonPager = jsonObject.getJSONObject("retData");
                 if (jsonPager != null) {
@@ -187,6 +217,8 @@ public class Utils {
                     result.setRetData(pager);
                     return result;
                 }
+            }else {
+                Log.e("Utils","pager...");
             }
             return result;
         }catch (Exception e){
@@ -194,4 +226,14 @@ public class Utils {
         }
         return  null;
     }
+    public static int px2dp(Context context,int px){
+        int density = (int) context.getResources().getDisplayMetrics().density;
+        return px/density;
+    }
+
+    public static int dp2px(Context context,int dp){
+        int density = (int) context.getResources().getDisplayMetrics().density;
+        return dp*density;
+    }
+
 }

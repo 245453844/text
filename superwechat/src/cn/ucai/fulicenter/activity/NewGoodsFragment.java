@@ -85,6 +85,10 @@ public class NewGoodsFragment extends Fragment {
                 int l = mGridLayoutManger.findLastVisibleItemPosition();
                 Log.e(TAG,"f="+f+"l="+l);
                 lastItemPosition = mGridLayoutManger.findLastVisibleItemPosition();
+                mSwipeRefreshLayout.setEnabled(mGridLayoutManger.findFirstVisibleItemPosition()==0);
+                if (f==-1||l==-1){
+                    lastItemPosition=mAdapter.getItemCount()-1;
+                }
             }
         });
     }
