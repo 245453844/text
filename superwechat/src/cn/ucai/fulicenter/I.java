@@ -476,7 +476,7 @@ public interface I {
     /** 下载分类商品大类图像的请求*/
     String REQUEST_DOWNLOAD_CATEGORY_GROUP_IMAGE="download_category_group_image";
     /** 下载分类商品大类图像的接口*/
-    String DOWNLOAD_DOWNLOAD_CATEGORY_GROUP_IMAGE_URL= I.SERVER_ROOT+
+    String REQUEST_DOWNLOAD_DOWNLOAD_CATEGORY_GROUP_IMAGE_URL = I.SERVER_ROOT+
         "?request="+REQUEST_DOWNLOAD_CATEGORY_GROUP_IMAGE
         +"&"+ D.CategoryGroup.IMAGE_URL+"=";
 
