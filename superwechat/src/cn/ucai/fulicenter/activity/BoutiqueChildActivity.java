@@ -8,9 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,19 +16,21 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.ucai.fulicenter.D;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.adapter.GoodAdapter;
 import cn.ucai.fulicenter.bean.NewGoodBean;
 import cn.ucai.fulicenter.data.OkHttpUtils2;
 import cn.ucai.fulicenter.utils.Utils;
+import cn.ucai.fulicenter.view.DisplayUtils;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewGoodsFragment extends Fragment {
+public class BoutiqueChildActivity extends BaseActivity {
     private final static String TAG = NewGoodsFragment.class.getSimpleName();
-    FuliCenterMainActivity mContext;
+    BoutiqueChildActivity mContext;
     SwipeRefreshLayout mSwipeRefreshLayout;
     RecyclerView mRecyclerView;
     GridLayoutManager mGridLayoutManger;
@@ -39,25 +39,17 @@ public class NewGoodsFragment extends Fragment {
     int pageId = 0;
     TextView tvHint;
     int action =  I.ACTION_DOWNLOAD;
-
-    public NewGoodsFragment() {
-        // Required empty public constructor
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mContext = (FuliCenterMainActivity) getContext();
-        View layout = View.inflate(mContext,R.layout.fragment_new_goods,null);
+    int catId = 0;
+    protected  void  onCreate(Bundle arg0){
+        super.onCreate(arg0);
+        mContext = this;
+        setContentView(R.layout.activity_boutique_child);
         mGoodList = new ArrayList<NewGoodBean>();
-        initView(layout);
+        initView();
         initData();
         setListener();
-        return layout;
-    }
 
+    }
     private void setListener() {
         setPullDownRefreshListener();
         setPullUpRefreshListener();
@@ -108,8 +100,13 @@ public class NewGoodsFragment extends Fragment {
     }
 
     private void initData() {
+        catId = getIntent().getIntExtra(D.Boutique.KEY_GOODS_ID,0);
+        Log.e(TAG,"catId="+catId);
+        if (catId<0){
+            finish();
+        }
         try {
-            findNewGoodList(new OkHttpUtils2.OnCompleteListener<NewGoodBean[]>() {
+            findBoutiqueChildList(new OkHttpUtils2.OnCompleteListener<NewGoodBean[]>() {
                 @Override
                 public void onSuccess(NewGoodBean[] result) {
                     Log.e(TAG, "result=" + result[0]);
@@ -150,10 +147,10 @@ public class NewGoodsFragment extends Fragment {
 
 
 
-            private void findNewGoodList(OkHttpUtils2.OnCompleteListener<NewGoodBean[]> listener) throws  Exception{
+            private void findBoutiqueChildList(OkHttpUtils2.OnCompleteListener<NewGoodBean[]> listener) throws  Exception{
                 OkHttpUtils2<NewGoodBean[]> utils = new OkHttpUtils2<NewGoodBean[]>();
                 utils.setRequestUrl(I.REQUEST_FIND_NEW_BOUTIQUE_GOODS)
-                        .addParam(I.NewAndBoutiqueGood.CAT_ID, String.valueOf(I.CAT_ID))
+                        .addParam(I.NewAndBoutiqueGood.CAT_ID, String.valueOf(catId))
                         .addParam(I.PAGE_ID, String.valueOf(pageId))
                         .addParam(I.PAGE_SIZE, String.valueOf(I.PAGE_SIZE_DEFAULT))
                         .targetClass(NewGoodBean[].class)
@@ -161,8 +158,10 @@ public class NewGoodsFragment extends Fragment {
 
 }
 
-    private void initView(View layout) {
-        mSwipeRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.srl_new_good);
+    private void initView() {
+        String name = getIntent().getStringExtra(D.Boutique.KEY_NAME);
+        DisplayUtils.initBackWithTitle(mContext,name);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.srl_boutique_child);
         mSwipeRefreshLayout.setColorSchemeColors(
                 getResources().getColor(R.color.google_blue) ,
                 getResources().getColor(R.color.google_yellow),
@@ -171,12 +170,12 @@ public class NewGoodsFragment extends Fragment {
         );
         mGridLayoutManger = new GridLayoutManager(mContext, I.COLUM_NUM);
         mGridLayoutManger.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView = (RecyclerView) layout.findViewById(R.id.rv_new_good);
+        mRecyclerView = (RecyclerView)findViewById(R.id.rv_boutique_child);
         mRecyclerView.setHasFixedSize(true );
         mRecyclerView.setLayoutManager(mGridLayoutManger);
         mAdapter = new GoodAdapter(mContext,mGoodList);
         mRecyclerView.setAdapter(mAdapter);
-        tvHint = (TextView) layout.findViewById(R.id.tv_refresh_hint);
+        tvHint = (TextView)findViewById(R.id.tv_refresh_hint);
     }
 
 }

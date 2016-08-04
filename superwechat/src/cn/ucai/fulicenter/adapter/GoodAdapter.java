@@ -28,7 +28,7 @@ import cn.ucai.fulicenter.view.FooterViewHolder;
 /**
  * Created by liulian on 2016/8/2.
  */
-public class BoutiqueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     Context mContext;
     List<NewGoodBean> mGoodlist;
     GoodViewHolder mGoodViewHolder;
