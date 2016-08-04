@@ -1,4 +1,4 @@
-package cn.ucai.fulicenter.activity;
+package cn.ucai.fulicenter.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +20,7 @@ import java.util.List;
 import cn.ucai.fulicenter.D;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.activity.GoodDetailsActivity;
 import cn.ucai.fulicenter.bean.NewGoodBean;
 import cn.ucai.fulicenter.utils.ImageUtils;
 import cn.ucai.fulicenter.view.FooterViewHolder;
@@ -27,7 +28,7 @@ import cn.ucai.fulicenter.view.FooterViewHolder;
 /**
  * Created by liulian on 2016/8/2.
  */
-public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class BoutiqueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     Context mContext;
     List<NewGoodBean> mGoodlist;
     GoodViewHolder mGoodViewHolder;
