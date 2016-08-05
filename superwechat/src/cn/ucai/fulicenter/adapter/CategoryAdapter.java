@@ -100,7 +100,7 @@ public class CategoryAdapter  extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup viewGroup) {
+    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup viewGroup) {
         ChildViewHolder holder ;
         if (convertView==null){
             convertView = View.inflate(mcontext,R.layout.item_category_child,null);
@@ -119,7 +119,10 @@ public class CategoryAdapter  extends BaseExpandableListAdapter {
                     @Override
                     public void onClick(View view) {
                         mcontext.startActivity(new Intent(mcontext, CategoryChildActivity.class)
-                                .putExtra(I.NewAndBoutiqueGood.CAT_ID,child.getId()));
+                                .putExtra(I.NewAndBoutiqueGood.CAT_ID,child.getId())
+                                .putExtra(I.CategoryGroup.NAME,mGroupList.get(groupPosition).getName())
+                                .putExtra("childList",mChildList.get(groupPosition))
+                        );
                     }
                 });
             }
