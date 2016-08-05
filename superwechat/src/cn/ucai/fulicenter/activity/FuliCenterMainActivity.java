@@ -27,6 +27,7 @@ public class FuliCenterMainActivity extends  BaseActivity{
     int currentIndex;
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
+    CategoryFragment mCategoryFragment;
     Fragment [] mFragment;
     @Override
     protected  void  onCreate(Bundle savedInstanceState){
@@ -38,7 +39,8 @@ public class FuliCenterMainActivity extends  BaseActivity{
                 .beginTransaction()
                 .add(R.id.fragment_container,mNewGoodsFragment)
                 .add(R.id.fragment_container,mBoutiqueFragment)
-                .hide(mBoutiqueFragment)
+                .add(R.id.fragment_container,mCategoryFragment)
+                .hide(mBoutiqueFragment).hide(mCategoryFragment)
                 .show(mNewGoodsFragment)
                 .commit();
 
@@ -47,9 +49,11 @@ public class FuliCenterMainActivity extends  BaseActivity{
     private void initFragment() {
         mNewGoodsFragment = new NewGoodsFragment();
         mBoutiqueFragment = new BoutiqueFragment();
+        mCategoryFragment = new CategoryFragment();
         mFragment = new Fragment[5];
         mFragment[0] = mNewGoodsFragment;
         mFragment[1] = mBoutiqueFragment;
+        mFragment[2] = mCategoryFragment;
 
     }
 
