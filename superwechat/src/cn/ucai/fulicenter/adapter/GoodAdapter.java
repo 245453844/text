@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -35,11 +34,13 @@ public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     FooterViewHolder mFooterViewHolder;
     boolean isMore;
     String footerString;
+    int soryBy;
     public GoodAdapter(Context context, List<NewGoodBean> list) {
         mContext =context;
         mGoodlist =new ArrayList<NewGoodBean>();
         mGoodlist.addAll(list);
-        soryByAddTime();
+        soryBy = I.SORT_BY_ADDTIME_DESC;
+        soryBy();
     }
 
     public String getFooterString() {
@@ -48,6 +49,11 @@ public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     public void setFooterString(String footerString) {
         this.footerString = footerString;
+        notifyDataSetChanged();
+    }
+    public void setSoryBy(int soryBy){
+        this.soryBy = soryBy;
+        soryBy();
         notifyDataSetChanged();
     }
 
@@ -115,7 +121,7 @@ public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             mGoodlist.clear();
         }
         mGoodlist.addAll(list);
-        soryByAddTime();
+        soryBy();
         mGoodlist = list;
         notifyDataSetChanged();
     }
@@ -139,11 +145,30 @@ public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         }
     }
-    private void  soryByAddTime(){
+    private void soryBy(){
         Collections.sort(mGoodlist, new Comparator<NewGoodBean>() {
             @Override
             public int compare(NewGoodBean goodLeft, NewGoodBean goodRight) {
-                return (int)(Long.valueOf(goodLeft.getAddTime())-Long.valueOf(goodRight.getAddTime()));
+                int result = 0;
+                switch (soryBy){
+                    case I.SORT_BY_ADDTIME_DESC:
+                        result = (int)(Long.valueOf(goodRight.getAddTime())-Long.valueOf(goodLeft.getAddTime()));
+                        break;
+                    case I.SORT_BY_ADDTIME_ASC:
+                        result = (int)(Long.valueOf(goodLeft.getAddTime())-Long.valueOf(goodRight.getAddTime()));
+                        break;
+                    case I.SORT_BY_PRICE_DESC:
+                        result = converPrice(goodRight.getCurrencyPrice())-converPrice(goodLeft.getCurrencyPrice());
+                        break;
+                    case I.SORT_BY_PRICE_ASC:
+                        result = converPrice(goodLeft.getCurrencyPrice())-converPrice(goodRight .getCurrencyPrice());
+                        break;
+                }
+                return result;
+            }
+            private  int converPrice (String price){
+                price = price.substring(price.indexOf("￥")+1);
+                return Integer.valueOf(price);
             }
         });
     }

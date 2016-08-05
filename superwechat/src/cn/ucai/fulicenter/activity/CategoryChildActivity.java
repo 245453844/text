@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,15 +37,21 @@ public class CategoryChildActivity extends BaseActivity {
     GridLayoutManager mGridLayoutManger;
     GoodAdapter mAdapter;
     List<NewGoodBean> mGoodList;
-    int pageId = 0;
     TextView tvHint;
+    Button btnSortPrice;
+    Button btnSortAddTime;
+    boolean mSortPriceAsc;
+    boolean mSortAddTimeAsc;
+    int sortBy;
     int action =  I.ACTION_DOWNLOAD;
+    int pageId = 0;
     int catId = 0;
     protected  void  onCreate(Bundle arg0){
         super.onCreate(arg0);
         mContext = this;
         setContentView(R.layout.activity_category_child);
         mGoodList = new ArrayList<NewGoodBean>();
+        sortBy = I.SORT_BY_ADDTIME_DESC;
         initView();
         initData();
         setListener();
@@ -53,6 +60,10 @@ public class CategoryChildActivity extends BaseActivity {
     private void setListener() {
         setPullDownRefreshListener();
         setPullUpRefreshListener();
+        SortStatusChangedListener listener = new SortStatusChangedListener();
+        btnSortPrice.setOnClickListener(listener);
+        btnSortAddTime.setOnClickListener(listener);
+
     }
 
     private void setPullUpRefreshListener() {
@@ -160,7 +171,7 @@ public class CategoryChildActivity extends BaseActivity {
 
     private void initView() {
 //        String name = getIntent().getStringExtra(D.Boutique.KEY_NAME);
-//        DisplayUtils.initBackWithTitle(mContext,name);
+        DisplayUtils.initBcak(mContext);
         mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.srl_category_child);
         mSwipeRefreshLayout.setColorSchemeColors(
                 getResources().getColor(R.color.google_blue) ,
@@ -176,6 +187,30 @@ public class CategoryChildActivity extends BaseActivity {
         mAdapter = new GoodAdapter(mContext,mGoodList);
         mRecyclerView.setAdapter(mAdapter);
         tvHint = (TextView)findViewById(R.id.tv_refresh_hint);
+    }
+    class  SortStatusChangedListener implements  View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()){
+                case R.id.btn_sort_price:
+                    if (mSortPriceAsc){
+                        sortBy = I.SORT_BY_PRICE_ASC;
+                    }else {
+                        sortBy = I.SORT_BY_PRICE_DESC;
+                    }
+                    mSortPriceAsc = !mSortPriceAsc;
+                    break;
+                case R.id.btn_sort_addtime:
+                    if (mSortAddTimeAsc){
+                        sortBy = I.SORT_BY_ADDTIME_ASC;
+                    }else {
+                        sortBy = I.SORT_BY_ADDTIME_DESC;
+                    }
+                    mSortAddTimeAsc = !mSortAddTimeAsc;
+                    break;
+            }
+            mAdapter.setSoryBy(sortBy);
+        }
     }
 
 }
