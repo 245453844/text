@@ -37,6 +37,7 @@ import cn.ucai.fulicenter.bean.Result;
 import cn.ucai.fulicenter.data.OkHttpUtils2;
 import cn.ucai.fulicenter.listener.OnSetAvatarListener;
 import cn.ucai.fulicenter.utils.Utils;
+import cn.ucai.fulicenter.view.DisplayUtils;
 
 
 /**
@@ -68,12 +69,6 @@ public class RegisterActivity extends BaseActivity {
 	}
 
 	private void setListener() {
-		findViewById(R.id.btn_Login).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				finish();
-			}
-		});
 		findViewById(R.id.btn_register).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -99,11 +94,12 @@ public class RegisterActivity extends BaseActivity {
 
 	private void initView() {
 		userNickEditText = (EditText)findViewById(R.id.Nick);
-		layoutAvatar = (RelativeLayout)findViewById(R.id.layout_register_avatar);
-		imAvatar = (ImageView)findViewById(R.id.iv_avatar);
 		userNameEditText = (EditText) findViewById(R.id.username);
 		passwordEditText = (EditText) findViewById(R.id.password);
 		confirmPwdEditText = (EditText) findViewById(R.id.confirm_password);
+		layoutAvatar = (RelativeLayout)findViewById(R.id.layout_register_avatar);
+		imAvatar = (ImageView)findViewById(R.id.iv_avatar);
+		DisplayUtils.initBackWithTitle(this,"账户登录");
 	}
 
 	/**

@@ -4,28 +4,7 @@
     android:layout_height="match_parent"
     android:background="#eff2f6"
     android:orientation="vertical" >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1" >
-
-        <ImageView
-            android:id="@+id/tvMo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:src="@drawable/mobile" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="超级微信"
-            android:textSize="20sp"
-            android:layout_toRightOf="@+id/tvMo"
-            android:layout_centerInParent="true"
-            android:textColor="#000"/>
-    </RelativeLayout>
+    <include layout="@layout/common_head_white"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,6 +12,7 @@
         android:layout_weight="1" >
 
         <RelativeLayout
+            android:layout_marginTop="10dp"
             android:id="@+id/rl_username"
             android:layout_width="match_parent"
             android:layout_height="54dp"
@@ -101,15 +81,31 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="30dp"
-            android:orientation="horizontal" >
-
+            android:orientation="vertical" >
             <Button
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
                 android:layout_weight="1"
-                android:background="@drawable/button_register_bg"
+                android:background="@drawable/orange_radius"
+                android:gravity="center"
+                android:onClick="login"
+                android:paddingBottom="7dp"
+                android:paddingTop="7dp"
+                android:text="@string/login"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <Button
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_white_normal_shape"
                 android:gravity="center"
                 android:onClick="register"
                 android:paddingBottom="7dp"
@@ -118,20 +114,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:layout_weight="1"
-                android:background="@drawable/button_login_bg"
-                android:gravity="center"
-                android:onClick="login"
-                android:paddingBottom="7dp"
-                android:paddingTop="7dp"
-                android:text="@string/login"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
         </LinearLayout>
     </RelativeLayout>
     <Button
