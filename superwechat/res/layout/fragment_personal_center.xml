@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+          android:orientation="vertical"
     android:background="@color/fragment_bg">
+
     <RelativeLayout
         android:id="@+id/center_top"
         android:layout_width="match_parent"
@@ -19,19 +20,20 @@
             android:layout_marginRight="5dp"
             android:src="@drawable/tb_icon_more_msg_white_56"/>
         <TextView
-            android:id="@+id/tv_center_settings"
+            android:id="@+id/tv_center_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="设置"
-            android:textColor="@color/white"
             android:textSize="20sp"
             android:gravity="center_vertical"
-            android:layout_marginRight="20dp"
-            android:layout_toLeftOf="@+id/iv_persona_center_msg"/>
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/iv_persona_center_msg"
+            android:textColor="@color/white"/>
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,11 +50,11 @@
                     android:layout_marginRight="10dp">
                     <ImageView
                         android:id="@+id/iv_user_avatar"
-                        android:layout_width="60dip"
-                        android:layout_height="60dip"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
-                        android:layout_margin="8dip"
+                        android:layout_margin="8dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/contactlogo"/>
                     <TextView
@@ -61,8 +63,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="10dp"
+                        android:textSize="18sp"
                         android:layout_toRightOf="@+id/iv_user_avatar"
-                        android:text="恋上猫女衣坊"
+                        android:text="恋上猫女郎"
                         android:textColor="@color/white"/>
                     <ImageView
                         android:id="@+id/iv_user_qrcode"
@@ -73,6 +76,13 @@
                         android:src="@drawable/tb_icon_home_qrcode_normal"
                         android:layout_toRightOf="@+id/tv_user_name"/>
                 </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/center_user_collects"
+                    android:layout_below="@+id/center_user_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#20000000">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -94,17 +104,16 @@
                                 android:textColor="@color/white"/>
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" 
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="5dp"
                                 android:text="收藏的宝贝"
                                 android:textColor="@color/white"/>
                         </LinearLayout>
-                        <view
+                        <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="7dp"
-                            android:layout_marginTop="7dp"
                             android:background="@color/white"/>
                         <LinearLayout
                             android:layout_width="0dp"
@@ -115,7 +124,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:text="524"
+                                android:text="28"
                                 android:textColor="@color/white"/>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -125,11 +134,10 @@
                                 android:text="收藏的店铺"
                                 android:textColor="@color/white"/>
                         </LinearLayout>
-                        <view
+                        <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="7dp"
-                            android:layout_marginTop="7dp"
                             android:background="@color/white"/>
                         <LinearLayout
                             android:layout_width="0dp"
@@ -151,7 +159,9 @@
                                 android:textColor="@color/white"/>
                         </LinearLayout>
                     </LinearLayout>
+
                 </RelativeLayout>
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -171,27 +181,28 @@
                     android:textSize="17sp"/>
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" 
+                    android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:text="查看全部已购的宝贝"/>
+                    android:text="查看自己的宝贝"/>
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" 
+                    android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:src="@drawable/right_arrow_icon"/>
             </LinearLayout>
             <GridView
-                android:id="@+id/center_user_order_lis"
+                android:id="@+id/center_user_order_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:cacheColorHint="#00000000"
                 android:background="@color/white"
-                android:paddingTop="20dp"
-                android:paddingBottom="10dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="1dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:numColumns="5"></GridView>
+                android:numColumns="5"
+                ></GridView>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -212,7 +223,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="10sp"
                     android:src="@drawable/right_arrow_icon"/>
             </LinearLayout>
             <LinearLayout
@@ -220,7 +231,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:layout_marginTop="1dp"
                 android:orientation="horizontal"
                 android:paddingBottom="10dp"
@@ -229,26 +240,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:src="@drawable/center_card_coupon1" />
+                    android:src="@drawable/center_card_coupon1"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:layout_gravity="center"
                     android:text="生活卷"
                     android:textColor="@color/black"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginRight="10dp"
                     android:src="@drawable/right_arrow_icon"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/ll_user_store"
+                android:id="@+id/ll_user_stor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:layout_marginTop="1dp"
                 android:orientation="horizontal"
                 android:paddingBottom="10dp"
@@ -261,27 +274,29 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="网店劵"
+                    android:text="网店卷"
                     android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:text="暂无可用的优惠劵"/>
+                    android:text="暂无可用优惠券"
+                    android:layout_gravity="center"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/right_arrow_icon"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/ll_user_members"
+                android:id="@+id/ll_user_member"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:layout_marginTop="1dp"
                 android:orientation="horizontal"
                 android:paddingBottom="10dp"
@@ -294,49 +309,56 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:text="会员卡"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:text="一卡在手,逛店无忧"/>
+                    android:text="一卡在手，逛店无忧"
+                    android:layout_gravity="center"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/right_arrow_icon"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
                 android:orientation="horizontal"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:text="我的专享特权"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"/>
+                    android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:text="领金币，看优惠"/>
+                    android:text="领金币看优惠"
+                    android:layout_gravity="center"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/right_arrow_icon"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

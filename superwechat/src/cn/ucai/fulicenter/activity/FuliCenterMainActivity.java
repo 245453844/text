@@ -27,6 +27,7 @@ public class FuliCenterMainActivity extends  BaseActivity{
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
+    PersonalCenterFragment mPersonalCenterFragment;
     Fragment [] mFragment;
     @Override
     protected  void  onCreate(Bundle savedInstanceState){
@@ -49,10 +50,12 @@ public class FuliCenterMainActivity extends  BaseActivity{
         mNewGoodsFragment = new NewGoodsFragment();
         mBoutiqueFragment = new BoutiqueFragment();
         mCategoryFragment = new CategoryFragment();
+        mPersonalCenterFragment = new PersonalCenterFragment();
         mFragment = new Fragment[5];
         mFragment[0] = mNewGoodsFragment;
         mFragment[1] = mBoutiqueFragment;
         mFragment[2] = mCategoryFragment;
+        mFragment[4] = mPersonalCenterFragment;
 
     }
 
