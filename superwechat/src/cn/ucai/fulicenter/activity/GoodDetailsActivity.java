@@ -201,6 +201,7 @@ public class GoodDetailsActivity extends BaseActivity {
                                if (result!=null && result.isSuccess()){
                                    isCollect = false;
                                    new DownloadCollectCountTask(mContext,FuliCenterApplication.getInstance().getUserName()).exectue();
+                                   sendStickyBroadcast(new Intent("update_collect_list"));
                                }else {
                                }
                                updateCollectStatus();
@@ -214,6 +215,34 @@ public class GoodDetailsActivity extends BaseActivity {
                        });
            }else {
 //               添加收藏
+               OkHttpUtils2<MessageBean> utils =new OkHttpUtils2<MessageBean>();
+               utils.setRequestUrl(I.REQUEST_ADD_COLLECT)
+                       .addParam(I.Collect.USER_NAME,FuliCenterApplication.getInstance().getUserName())
+                       .addParam(I.Collect.GOODS_ID,String.valueOf(mGoodDetails.getGoodsId()))
+                       .addParam(I.Collect.ADD_TIME,String.valueOf(mGoodDetails.getAddTime()))
+                       .addParam(I.Collect.GOODS_ENGLISH_NAME,mGoodDetails.getGoodsEnglishName())
+                       .addParam(I.Collect.GOODS_IMG,mGoodDetails.getGoodsImg())
+                       .addParam(I.Collect.GOODS_THUMB,mGoodDetails.getGoodsThumb())
+                       .addParam(I.Collect.GOODS_NAME,mGoodDetails.getGoodsName())
+                       .targetClass(MessageBean.class)
+                       .execute(new OkHttpUtils2.OnCompleteListener<MessageBean>() {
+                           @Override
+                           public void onSuccess(MessageBean result) {
+                               Log.e(TAG,"result="+result);
+                               if (result!=null&& result.isSuccess()){
+                                   isCollect =true;
+                                   new DownloadCollectCountTask(mContext,FuliCenterApplication.getInstance().getUserName()).exectue();
+                               }else {
+                               }
+                               updateCollectStatus();
+                               Toast.makeText(mContext,result.getMsg(),Toast.LENGTH_SHORT).show();
+                           }
+
+                           @Override
+                           public void onError(String error) {
+                               Log.e(TAG,"error="+error);
+                           }
+                       });
            }
         }else {
             startActivity(new Intent(mContext,LoginActivity.class));
