@@ -87,9 +87,7 @@ public class UserUtils {
 				.append(I.EQUAL)
 				.append(I.REQUEST_DOWNLOAD_AVATAR)
 				.append(I.AND)
-				.append(I.NAME_OR_HXID).append(I.EQUAL).append(username)
-				.append(I.AND)
-				.append(I.AVATAR_TYPE).append(I.EQUAL).append(I.AVATAR_TYPE_USER_PATH);
+				.append(I.AVATAR_TYPE).append(I.EQUAL).append(username);
 		return path.toString();
 	}
     /**

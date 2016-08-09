@@ -52,6 +52,7 @@ import cn.ucai.fulicenter.bean.UserAvatar;
 import cn.ucai.fulicenter.data.OkHttpUtils2;
 import cn.ucai.fulicenter.db.UserDao;
 import cn.ucai.fulicenter.domain.User;
+import cn.ucai.fulicenter.task.DownloadCollectCountTask;
 import cn.ucai.fulicenter.task.DownloadContactListTask;
 import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.UserUtils;
@@ -201,9 +202,11 @@ public class LoginActivity extends BaseActivity {
 							UserAvatar user =(UserAvatar)result.getRetData();
 							Log.e(TAG,"user="+user);
 							if(user!=null){
-								downloadUserAvatar();
 							saveUserToDB(user );
-							loginSuccess(user);}
+							loginSuccess(user);
+								downloadUserAvatar();
+
+							}
 						}else {
 							pd.dismiss();
 							Toast.makeText(getApplicationContext(),
@@ -266,6 +269,8 @@ public class LoginActivity extends BaseActivity {
 		FuliCenterApplication.getInstance().setUser(user);
 		FuliCenterApplication.currentUserNick = user.getMUserNick();
 		new DownloadContactListTask(LoginActivity.this,currentUsername).exectue();
+		new DownloadCollectCountTask(LoginActivity.this,currentUsername).exectue();
+
 		try {
 			// ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
 			// ** manually load all local groups and
@@ -286,8 +291,9 @@ public class LoginActivity extends BaseActivity {
 			return;
 		}
 		// 更新当前用户的nickname 此方法的作用是在ios离线推送时能够显示用户nick
-		boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(
-				FuliCenterApplication.currentUserNick.trim());
+		boolean updatenick =false;
+//				EMChatManager.getInstance().updateCurrentUserNick(
+//				FuliCenterApplication.currentUserNick.trim());
 		if (!updatenick) {
 			Log.e("LoginActivity", "update current user nick fail");
 		}

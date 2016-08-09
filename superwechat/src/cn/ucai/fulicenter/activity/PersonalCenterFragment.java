@@ -1,6 +1,9 @@
 package cn.ucai.fulicenter.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,8 +23,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cn.ucai.fulicenter.DemoHXSDKHelper;
+import cn.ucai.fulicenter.FuliCenterApplication;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.bean.UserAvatar;
 import cn.ucai.fulicenter.db.DemoDBManager;
+import cn.ucai.fulicenter.utils.UserUtils;
 
 /**
  * Created by liulian on 2016/8/8.
@@ -45,14 +51,27 @@ public class PersonalCenterFragment extends Fragment {
       mContext = (FuliCenterMainActivity) getContext();
         View layout = View.inflate(mContext, R.layout.fragment_personal_center,null);
         initView(layout);
+        intData();
         setListener();
         return  layout;
     }
+
+    private void intData() {
+        if (DemoHXSDKHelper.getInstance().isLogined()){
+            UserAvatar user = FuliCenterApplication.getInstance().getUser();
+            Log.e(TAG,"user="+user);
+            UserUtils.setAppCurrentUserNick(mtvUserName);
+            UserUtils.setAppCurrentUserAvatar(mContext,mivUserAvatar);
+            }
+        }
+
 
     private void setListener() {
         MyClickListener listener = new MyClickListener();
         mtvSettings.setOnClickListener(listener) ;
         layoutUserCenter.setOnClickListener(listener);
+        layoutCollect.setOnClickListener(listener);
+        updateCollectCountListener();
     }
     class MyClickListener implements View.OnClickListener{
         @Override
@@ -63,6 +82,8 @@ public class PersonalCenterFragment extends Fragment {
                        case R.id.center_user_info:
                            startActivity(new Intent(mContext,SettingsActivity.class));
                            break;
+                       case R.id.layout_center_collect:
+                           startActivity(new Intent(mContext,CollectActivity.class));
                    }
             }else {
                 Log.e(TAG,"not login...");
@@ -102,5 +123,25 @@ public class PersonalCenterFragment extends Fragment {
         SimpleAdapter adapter = new SimpleAdapter(mContext,data,R.layout.simple_adapter,new String[]{"order"},
                 new int[]{R.id.iv_order});
         gvOrderList.setAdapter(adapter);
+    }
+    class  UpdateCollectCount extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int count = FuliCenterApplication.getInstance().getCollectCount();
+            Log.e(TAG,"count="+count);
+            mtvCollectCount.setText(String.valueOf(count));
+        }
+    }
+    UpdateCollectCount mReceiver;
+    private  void  updateCollectCountListener(){
+        mReceiver = new UpdateCollectCount();
+        IntentFilter filter =new IntentFilter("update_collect");
+        mContext.registerReceiver(mReceiver,filter);
+
+    }
+    public void onDestroy(){
+        super.onDestroy();
+        mContext.unregisterReceiver(mReceiver);
     }
 }

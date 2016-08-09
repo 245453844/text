@@ -37,17 +37,18 @@ public class DownloadContactListTask {
                         Log.e(TAG,"s="+s);
                         Result result= Utils.getListResultFromJson(s,UserAvatar.class);
                         Log.e(TAG,"resulut="+result);
-                        List<UserAvatar>list=(List<UserAvatar>)result.getRetData();
-                        if (list!=null&&list.size()>0){
-                            FuliCenterApplication.getInstance().setUserList(list);
-                            mcontext.sendStickyBroadcast(new Intent("update_contact_list"));
-                           Map<String,UserAvatar> userMap= FuliCenterApplication.getInstance().getUserMap();
-                            for(UserAvatar u:list){
-                                userMap.put(u.getMUserName(),u);
+                        if (result!=null) {
+                            List<UserAvatar> list = (List<UserAvatar>) result.getRetData();
+                            if (list != null && list.size() > 0) {
+                                FuliCenterApplication.getInstance().setUserList(list);
+                                mcontext.sendStickyBroadcast(new Intent("update_contact_list"));
+                                Map<String, UserAvatar> userMap = FuliCenterApplication.getInstance().getUserMap();
+                                for (UserAvatar u : list) {
+                                    userMap.put(u.getMUserName(), u);
+                                }
                             }
+
                         }
-
-
                     }
 
                     @Override

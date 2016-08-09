@@ -159,8 +159,14 @@ public class FuliCenterApplication extends Application {
 	public void setUserList(List<UserAvatar> userList) {
 		this.userList = userList;
 	}
+// 当前登录用户收藏商品的数量
+	public  int collectCount;
 
+	public int getCollectCount() {
+		return collectCount;
+	}
 
-
-
+	public void setCollectCount(int collectCount) {
+		this.collectCount = collectCount;
+	}
 }
