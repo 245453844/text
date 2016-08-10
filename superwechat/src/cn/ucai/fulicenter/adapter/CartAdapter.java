@@ -78,7 +78,7 @@ public class CartAdapter extends RecyclerView.Adapter<ViewHolder>{
         return mCartList !=null? mCartList.size():0;
     }
 
-    public void initItem(ArrayList<CartBean> list) {
+    public void initItem(List<CartBean> list) {
         if (mCartList !=null){
             mCartList.clear();
         }
@@ -87,7 +87,7 @@ public class CartAdapter extends RecyclerView.Adapter<ViewHolder>{
         notifyDataSetChanged();
     }
 
-    public void addItem(ArrayList<CartBean> list) {
+    public void addItem(List<CartBean> list) {
         mCartList.addAll(list);
         notifyDataSetChanged();
     }
