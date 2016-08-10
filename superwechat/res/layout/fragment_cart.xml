@@ -54,6 +54,15 @@
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
+    <TextView
+        android:id="@+id/tv_nothing"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="@color/orange"
+        android:textSize="18sp"
+        android:text="购物车空空如也"/>
 
 
 </LinearLayout>

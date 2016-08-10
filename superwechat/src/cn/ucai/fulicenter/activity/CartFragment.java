@@ -1,6 +1,10 @@
 package cn.ucai.fulicenter.activity;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -43,6 +47,8 @@ public class CartFragment extends Fragment {
     TextView tvSumPrice;
     TextView tvSavePrice;
     TextView tvBy;
+    TextView tvNothing;
+    UpdateCartReceiver mReceiver;
 
 
     public CartFragment() {
@@ -58,13 +64,13 @@ public class CartFragment extends Fragment {
         View layout = View.inflate(mContext,R.layout.fragment_cart,null);
         mCartList = new ArrayList<CartBean>();
         initView(layout);
-        initData();
         setListener();
         return  layout;
     }
     private void setListener() {
         setPullDownRefreshListener();
         setPullUpRefreshListener();
+        setUpdateCartListener();
     }
 
     private void setPullUpRefreshListener() {
@@ -151,6 +157,24 @@ public class CartFragment extends Fragment {
         tvSumPrice = (TextView) layout.findViewById(R.id.tv_cart_sum_price);
         tvSavePrice = (TextView) layout.findViewById(R.id.tv_cart_save_price);
         tvBy = (TextView) layout.findViewById(R.id.tv_cart_by);
+        tvNothing = (TextView) layout.findViewById(R.id.tv_nothing);
     }
+         class  UpdateCartReceiver extends BroadcastReceiver{
 
+             @Override
+             public void onReceive(Context context, Intent intent) {
+                 initData();
+             }
+         }
+    private void setUpdateCartListener(){
+        mReceiver = new UpdateCartReceiver();
+        IntentFilter filter = new IntentFilter("update_cart_list");
+        mContext.registerReceiver(mReceiver,filter);
+    }
+    public void onDestroy(){
+        super.onDestroy();
+        if (mReceiver!=null){
+            mContext.unregisterReceiver(mReceiver);
+        }
+    }
 }
