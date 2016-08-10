@@ -268,6 +268,7 @@ public class LoginActivity extends BaseActivity {
 		FuliCenterApplication.getInstance().setPassword(currentPassword);
 		FuliCenterApplication.getInstance().setUser(user);
 		FuliCenterApplication.currentUserNick = user.getMUserNick();
+
 		new DownloadContactListTask(LoginActivity.this,currentUsername).exectue();
 		new DownloadCollectCountTask(LoginActivity.this,currentUsername).exectue();
 

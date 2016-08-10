@@ -145,6 +145,7 @@ public class GoodDetailsActivity extends BaseActivity {
     protected  void  onResume(){
         super.onResume();
         initCollecStatus();
+
     }
 
     private void initCollecStatus() {

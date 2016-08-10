@@ -15,14 +15,19 @@ package cn.ucai.fulicenter;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.easemob.EMCallBack;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
+import cn.ucai.fulicenter.bean.CartBean;
 import cn.ucai.fulicenter.bean.MemberUserAvatar;
 import cn.ucai.fulicenter.bean.UserAvatar;
 
@@ -169,4 +174,15 @@ public class FuliCenterApplication extends Application {
 	public void setCollectCount(int collectCount) {
 		this.collectCount = collectCount;
 	}
+//	全局的当前登陆用户的购物车集合
+	private  List<CartBean> cartList = new ArrayList<CartBean>();
+
+	public List<CartBean> getCartList() {
+		return cartList;
+	}
+
+	public void setCartList(List<CartBean> cartList) {
+		this.cartList = cartList;
+	}
 }
+
