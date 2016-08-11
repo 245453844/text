@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.ucai.fulicenter.D;
@@ -19,6 +21,7 @@ import cn.ucai.fulicenter.FuliCenterApplication;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.AlbumBean;
+import cn.ucai.fulicenter.bean.CartBean;
 import cn.ucai.fulicenter.bean.GoodDetailsBean;
 import cn.ucai.fulicenter.bean.MessageBean;
 import cn.ucai.fulicenter.data.OkHttpUtils2;
@@ -253,6 +256,31 @@ public class GoodDetailsActivity extends BaseActivity {
            }
         }else {
             startActivity(new Intent(mContext,LoginActivity.class));
+        }
+    }
+    private  void  addCart(){
+        Log.e(TAG,"addCart..");
+        List<CartBean> cartList = FuliCenterApplication.getInstance().getCartList();
+        CartBean cart = new CartBean();
+        boolean isExits = false;
+        for (CartBean cartBean:cartList){
+            if (cartBean.getGoodsId()==mGoodId){
+                cart.setId(cartBean.getId());
+                cart.setGoodsId(mGoodId);
+                cart.setChecked(cartBean.isChecked());
+                cart.setCount(cartBean.getCount()+1);
+                cart.setGoods(mGoodDetails);
+                cart.setUserName(cartBean.getUserName());
+                isExits =true;
+            }
+        }
+        Log.e(TAG,"addCart...isExits"+isExits);
+        if (!isExits){
+            cart.setGoodsId(mGoodId);
+            cart.setChecked(true);
+            cart.setCount(1);
+            cart.setGoods(mGoodDetails);
+            cart.setUserName(FuliCenterApplication.getInstance().getUserName());
         }
     }
     private void updateCollectStatus(){
