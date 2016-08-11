@@ -53,7 +53,8 @@ public class DownloadCartListTask {
                                         .execute(new OkHttpUtils2.OnCompleteListener<GoodDetailsBean>() {
                                             @Override
                                             public void onSuccess(GoodDetailsBean result) {
-                                                cart.setGoods(String.valueOf(result));
+                                                cart.setGoods(result);
+                                                mcontext.sendStickyBroadcast(new Intent("update_cart_list"));
                                             }
 
                                             @Override

@@ -20,11 +20,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.ucai.fulicenter.D;
 import cn.ucai.fulicenter.FuliCenterApplication;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.adapter.CartAdapter;
 import cn.ucai.fulicenter.bean.CartBean;
+import cn.ucai.fulicenter.bean.GoodDetailsBean;
 import cn.ucai.fulicenter.bean.NewGoodBean;
 import cn.ucai.fulicenter.data.OkHttpUtils2;
 import cn.ucai.fulicenter.utils.Utils;
@@ -134,10 +136,14 @@ public class CartFragment extends Fragment {
             if (mCartList.size()<I.PAGE_SIZE_DEFAULT){
                 mAdapter.setMore(false);
             }
+            tvNothing.setVisibility(View.GONE);
+            mSwipeRefreshLayout.setVisibility(View.VISIBLE);
         }else {
             mAdapter.setMore(false);
+            tvNothing.setVisibility(View.VISIBLE);
+            mSwipeRefreshLayout.setVisibility(View.GONE);
         }
-
+        sumPrice();
     }
     private void initView(View layout) {
         mSwipeRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.srl_cart);
@@ -176,5 +182,27 @@ public class CartFragment extends Fragment {
         if (mReceiver!=null){
             mContext.unregisterReceiver(mReceiver);
         }
+    }
+    public  void  sumPrice(){
+        if (mCartList!=null&&mCartList.size()>0){
+            int sumPrice = 0;
+            int rankPrice = 0 ;
+              for(CartBean cart:mCartList) {
+//                  GoodDetailsBean good =cart.getGoods();
+//                  if (good!=null&&cart.isChecked()){
+//                      sumPrice+=converPrice(good.getCurrencyPrice())*cart.getCount();
+//                      rankPrice+=converPrice(good.getRankPrice())*cart.getCount();
+//                  }
+              }
+            tvSumPrice.setText("合计:￥"+sumPrice);
+            tvSavePrice.setText("节省:￥"+(sumPrice-rankPrice));
+        }else {
+            tvSumPrice.setText("合计:￥00.00");
+            tvSavePrice.setText("节省:￥00.00");
+        }
+    }
+    private  int converPrice (String price){
+        price = price.substring(price.indexOf("￥")+1);
+        return Integer.valueOf(price);
     }
 }

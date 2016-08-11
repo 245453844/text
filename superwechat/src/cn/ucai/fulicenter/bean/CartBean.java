@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
-
+import cn.ucai.fulicenter.bean.GoodDetailsBean;
 /**
  * 购物车
  * 
@@ -33,14 +33,16 @@ public class CartBean implements Serializable {
 		this.goods = goods;
 	}
 
+
 	public String getGoods() {
 		return goods;
 	}
 
-	public void setGoods(String goods) {
-		this.goods = goods;
+	public void setGoods(GoodDetailsBean goods) {
+		this.goods = String.valueOf(goods);
 	}
-@JsonIgnore
+
+	@JsonIgnore
 	public boolean isChecked() {
         return isChecked;
     }
