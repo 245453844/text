@@ -17,7 +17,6 @@ import java.util.List;
 
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.CartBean;
-import cn.ucai.fulicenter.bean.GoodDetailsBean;
 import cn.ucai.fulicenter.utils.ImageUtils;
 import cn.ucai.fulicenter.view.FooterViewHolder;
 
@@ -68,9 +67,14 @@ public class CartAdapter extends RecyclerView.Adapter<ViewHolder>{
            mCartViewHolder.cbCartSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                @Override
                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                   cart.setChecked(isChecked);
+//                   new UpdateCartTask(mContext,cart).exectue();
 
                }
            });
+           ChangeCountListener listener = new ChangeCountListener(cart);
+           mCartViewHolder.ivCartAdd.setOnClickListener(listener);
+           mCartViewHolder.ivCartDel.setOnClickListener(listener);
        }
     }
 
@@ -111,6 +115,16 @@ public class CartAdapter extends RecyclerView.Adapter<ViewHolder>{
             tvCartCount = (TextView) itemView.findViewById(R.id.tv_cart_count);
             ivCartDel = (ImageView) itemView.findViewById(R.id.iv_cart_del);
             tvCartPrice = (TextView) itemView.findViewById(R.id.tv_cart_price);
+        }
+    }
+    class  ChangeCountListener implements  View.OnClickListener{
+        CartBean cartBean;
+        public  ChangeCountListener(CartBean cart){
+            this.cartBean =cart;
+        }
+
+        @Override
+        public void onClick(View view) {
         }
     }
 }
